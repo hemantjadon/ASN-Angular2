@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from .views import APIRoot
+from .views import APIRoot,AngularRoot
 
 urlpatterns = [
     url(r'^api/$',APIRoot.as_view(),name='api'),
@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^api/blogs/',include('blogs.urls')),
     url(r'^api-auth/',include('rest_framework.urls',namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
+    url(r'^',AngularRoot.as_view(),name='angular_root'),
 ]

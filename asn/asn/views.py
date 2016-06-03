@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.views.generic import TemplateView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -15,3 +16,10 @@ class APIRoot(generics.GenericAPIView):
 			'users': reverse('user-list', request=request, format=format),
 			'blogs': reverse('blog-list', request=request, format=format)
 		})
+
+class AngularRoot(TemplateView):
+	'''
+		Root Application Page. Contains the root 'Angular 2' application.
+	'''
+	
+	template_name = 'index.html'

@@ -12,5 +12,6 @@ class APIRoot(generics.GenericAPIView):
 	queryset = AuthUser.objects.all()
 	def get(self,request,format=None):
 		return Response({
-			'users': reverse('user-list', request=request, format=format)
+			'users': reverse('user-list', request=request, format=format),
+			'blogs': reverse('blog-list', request=request, format=format)
 		})

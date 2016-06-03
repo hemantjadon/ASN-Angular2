@@ -4,7 +4,7 @@ from rest_framework import permissions
 
 class IsAnonymous(permissions.BasePermission):
 	'''
-		Permission only for Anonymous Users
+		Permission only for 'Anonymous Users'
 	'''
 	
 	def has_permission(self,request,view):
@@ -16,7 +16,7 @@ class IsAnonymous(permissions.BasePermission):
 
 class IsSelf(permissions.BasePermission):
 	'''
-		Permission only for Self Objects
+		Permission only for 'Self User Objects'
 	'''
 	
 	def has_permission(self,request,view):

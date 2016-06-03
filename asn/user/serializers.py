@@ -7,7 +7,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		Contains information about : url, id, username, email, staff_status.
 	'''
 	
-	url = serializers.HyperlinkedIdentityField(view_name='user_detail',many=False)
+	url = serializers.HyperlinkedIdentityField(view_name='user-detail',many=False)
 	
 	class Meta:
 		model = AuthUser

@@ -4,3 +4,5 @@ node_modules/
 migrations/
 ng-main/build/
 typings/
+build/
+npm-debug.log

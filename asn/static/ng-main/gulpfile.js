@@ -6,16 +6,48 @@ var rename = require('gulp-rename');
 var tsc = require('gulp-typescript');
 var tsProject = tsc.createProject('tsconfig.json');
 
+var less = require('gulp-less');
+var LessPluginCleanCSS = require('less-plugin-clean-css');
+var LessPluginAutoPrefix = require('less-plugin-autoprefix');
+var cleancss = new LessPluginCleanCSS({ advanced: true });
+var autoprefix = new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
+
+gulp.task('copy-templates',function(){
+    return gulp.src(['app/**/templates/**/*.html'])
+               .pipe(gulp.dest('build/app'));
+});
+
+gulp.task('compile-less', function () {
+    return gulp.src(['app/**/styles/**/*.less'])
+        .pipe(less({
+            plugins:[autoprefix,cleancss]
+        }))
+        .pipe(rename(function(path){
+            var x = path.dirname.split('/');
+            path.dirname = x.join('/');
+            return path;
+        }))
+        .pipe(gulp.dest('build/app'));
+});
 
 gulp.task('transpile-ts', function () {
-    return tsProject.src(['ng-*/**/*.ts','!node_modules/**','!typings/**'])
+    return tsProject.src(['app/**/components/**/*.ts'])
         			.pipe(tsc(tsProject))
         			.pipe(gulp.dest('build/app'));
 });
 
+
 gulp.task('watch',function () {
-    watch(['**/*.ts','!node_modules/**','!typings/**'],function(){
+    watch(['app/**/components/**/*.ts'],function(){
         gulp.start('transpile-ts');
+        
+    });
+    watch(['app/**/styles/**/*.less'],function(){
+        gulp.start('compile-less');
+    });
+    watch(['app/**/templates/**/*.html'],function(){
+        gulp.start('copy-templates');
     });
 });
-gulp.task('default',['transpile-ts','watch']);
+
+gulp.task('default',['copy-templates','compile-less','transpile-ts','watch']);

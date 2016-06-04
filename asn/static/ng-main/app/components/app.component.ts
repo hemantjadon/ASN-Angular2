@@ -3,7 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 
 import { AUTH } from '../services/auth.service';
 import { NavbarComponent } from './navbar.component';
-import { HomePageComponent } from './home-page/home-page.component';
+import { HomePageComponent } from './home-page.component';
 
 @Component({
 	selector: 'ng-app',

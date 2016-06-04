@@ -3,6 +3,7 @@ import { Http,Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { JwtHelper,tokenNotExpired } from 'angular2-jwt';
 
+import { User } from '../user.interface';
 import { URL,APIEndpoints } from '../api-endpoints';
 
 
@@ -11,11 +12,14 @@ import { URL,APIEndpoints } from '../api-endpoints';
  * 
  * @property : jwtHelper<Object> : JwtHelper	=> Helper JWT class to decode/encode/check token.
  * 
+ * @method : <User> construct_user_from_localStorage()	=>	Constructs user from local storage and new user if none.
+ * 
  * @method : <Promise<boolean>> is_authenticated()	=>	Checks if token present in localStorage is valid or not.
  * 
  * @method : <Promise<Object>> login(string, string)	=>	Logs user in. Sends request to server and saves the token and profile.
  * 	
  * @method : <Promise<Object>> logout()		=>	Logs user out. Removes token and profile from localStorage. 
+ * 
  */
 
 @Injectable()
@@ -27,6 +31,18 @@ export class AUTH {
 		this.jwtHelper = new JwtHelper();
 	}
 	
+	public construct_user_from_localStorage() : User {
+		let status = tokenNotExpired() ? true : false;
+		let user = new User();
+		
+		if (status) {
+			user = JSON.parse(localStorage.getItem('profile'));
+			user.is_authenticated = true;
+		}
+		else { }
+		
+		return user;
+	}
 	
 	public is_authenticated() : Promise<boolean> {
 		// Checks if token is valid or not.

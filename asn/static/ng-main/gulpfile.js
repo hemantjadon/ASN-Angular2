@@ -31,14 +31,14 @@ gulp.task('compile-less', function () {
 });
 
 gulp.task('transpile-ts', function () {
-    return tsProject.src(['app/**/components/**/*.ts'])
+    return tsProject.src(['app/**/*.ts'])
         			.pipe(tsc(tsProject))
         			.pipe(gulp.dest('build/app'));
 });
 
 
 gulp.task('watch',function () {
-    watch(['app/**/components/**/*.ts'],function(){
+    watch(['app/**/*.ts'],function(){
         gulp.start('transpile-ts');
         
     });

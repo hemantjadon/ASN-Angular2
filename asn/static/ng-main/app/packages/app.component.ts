@@ -1,9 +1,11 @@
 import { Component,OnInit } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
-import { AUTH } from '../services/auth.service';
+import { APIEndpoints } from './api-endpoints';
+import { AUTH } from './auth-services/auth.service';
 import { NavbarComponent } from './navbar.component';
-import { HomePageComponent } from './home-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { BlogRootComponent } from './blog-page/blog-root.component';
 
 @Component({
 	selector: 'ng-app',
@@ -15,7 +17,8 @@ import { HomePageComponent } from './home-page.component';
 	],
 	providers: [ 
 		AUTH,
-		ROUTER_PROVIDERS
+		APIEndpoints,
+		ROUTER_PROVIDERS,
 	],
 })
 @RouteConfig([
@@ -24,6 +27,11 @@ import { HomePageComponent } from './home-page.component';
 		name : 'HomePage',
 		component : HomePageComponent,
 		useAsDefault : true
+	},
+	{
+		path: '/blogs/...',
+		name: 'BlogPage',
+		component: BlogRootComponent
 	}
 ])
 export class AppComponent implements OnInit {

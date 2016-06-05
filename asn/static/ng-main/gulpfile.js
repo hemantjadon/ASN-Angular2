@@ -18,7 +18,7 @@ gulp.task('copy-templates',function(){
 });
 
 gulp.task('compile-less', function () {
-    return gulp.src(['app/**/styles/**/*.less'])
+    return gulp.src(['app/**/*.less'])
         .pipe(less({
             plugins:[autoprefix,cleancss]
         }))
@@ -42,7 +42,7 @@ gulp.task('watch',function () {
         gulp.start('transpile-ts');
         
     });
-    watch(['app/**/styles/**/*.less'],function(){
+    watch(['app/**/*.less'],function(){
         gulp.start('compile-less');
     });
     watch(['app/**/templates/**/*.html'],function(){

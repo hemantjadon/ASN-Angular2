@@ -5,17 +5,8 @@
 		</div>
 		<div class="links">
 			<ul>
-				<li>
-					Blogs
-				</li>
-				<li>
-					Fourms
-				</li>
-				<li>
-					Events
-				</li>
-				<li>
-					Schedule
+				<li *ngFor="let element of NavbarElements" (click)="_navigation($event,element)">
+					{{element.show_name}}
 				</li>
 			</ul>
 		</div>
@@ -32,17 +23,8 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<ul id="list-dropdown" class="floating-list dropdown-content">
-				<li class="valign-wrapper">
-					<h5 class="valign">Blogs</h5>
-				</li>
-				<li class="valign-wrapper">
-					<h5 class="valign centre-align">Fourms</h5>
-				</li>
-				<li class="valign-wrapper">
-					<h5 class="valign centre-align">Events</h5>
-				</li>
-				<li class="valign-wrapper">
-					<h5 class="valign centre-align">Schedule</h5>
+				<li class="valign-wrapper" *ngFor="let element of NavbarElements">
+					<h5>{{element.show_name}}</h5>
 				</li>
 			</ul>
 		</div>

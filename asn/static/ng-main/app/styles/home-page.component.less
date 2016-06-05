@@ -1,0 +1,59 @@
+.header{
+	background-color: rgb(35, 34, 40);
+	position: relative;
+	height: 60vh;
+	min-height: 300px;
+	.banner{
+		background-image: url("https://cldup.com/7KB0QsZkIX.svg");
+		background-repeat: no-repeat;
+		background-position-x: 50%;
+		background-position-y: 50%;
+		height: 100%;
+		opacity: 0.06;
+	}
+	.heading{
+		position: absolute;
+		color: white;
+		width: 100%;
+		text-align: center;
+		h4{
+			color: #bbb;
+		}
+		@media(max-width:768px) and (orientation : portrait){
+			bottom: 10%;
+			h1{
+				font-size: 2em;
+			}
+			h4{
+				font-size: 1.3em;
+			}
+		}
+		@media(max-height:500px) and (orientation : landscape){
+			bottom: 7%;
+			h1{
+				font-size: 2.7em;
+			}
+			h4{
+				font-size: 1.5em;
+			}
+		}
+		@media(min-height:500px) and (orientation : landscape){
+			bottom: 7%;
+			h1{
+				font-size: 2.7em;
+			}
+			h4{
+				font-size: 1.5em;
+			}
+		}
+		@media(min-width:769px){
+			bottom: 15%;
+			h1{
+				font-size: 3.5em;
+			}
+			h4{
+				font-size: 2em;
+			}
+		}
+	}
+}

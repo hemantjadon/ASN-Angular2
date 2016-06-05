@@ -1,6 +1,4 @@
 import { Component,OnInit } from '@angular/core';
-import { Http,Headers } from '@angular/http';
-import { JwtHelper } from 'angular2-jwt';
 
 import { User } from '../user.interface';
 import { AUTH } from '../auth-services/auth.service';
@@ -24,5 +22,7 @@ export class BlogFeedComponent implements OnInit {
 		
 	}
 	
-	private getAllBlogs(){}
+	private getAllBlogs(){
+		
+	}
 }

@@ -41,14 +41,13 @@ export class AppComponent implements OnInit {
 	}
 	
 	ngOnInit() { 
-		// this.AUTH.login('admin','admin1234')
-		// 		 .then((response) => {
-		// 			 console.log(response);
-		// 		 })
-		// 		 .catch((error)=>{ 
-		// 			 console.error(error) 
-		// 		 });
+		this.AUTH.login('admin','admin1234')
+				 .then((response) => {
+					 console.log(response);
+				 })
+				 .catch((error)=>{ 
+					 console.error(error) 
+				 });
 		
-		this.AUTH.logout();
 	}
 }

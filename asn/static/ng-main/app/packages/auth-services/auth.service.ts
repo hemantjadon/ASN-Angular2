@@ -44,6 +44,19 @@ export class AUTH {
 		return user;
 	}
 	
+	public get_token() {
+		
+		let token = window.localStorage.getItem('id_token');
+		let status = tokenNotExpired() ? true : false;
+		
+		if ( status ) {
+			return token;
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public is_authenticated() : Promise<boolean> {
 		// Checks if token is valid or not.
 

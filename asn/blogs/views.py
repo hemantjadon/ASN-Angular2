@@ -5,6 +5,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.views import exception_handler
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.authentication import SessionAuthentication
 
 from .serializers import BlogSerializer,BlogCommentSerializer
 from .models import Blog,BlogComment

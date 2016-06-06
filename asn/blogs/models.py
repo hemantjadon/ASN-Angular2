@@ -16,7 +16,7 @@ class BlogCategory(models.Model):
 class Blog(models.Model):
 	'''
 		* Blog Model contains information about blogs. 
-		* 'id' , 'author' , 'timestamp' , 'title' , 'subtitle' , 'tags' ,'content'.
+		* 'id' , 'author' , 'timestamp' , 'title' , 'description' , 'category' ,'content'.
 	'''
 	
 	id = models.CharField(max_length=22,primary_key=True,editable=False)

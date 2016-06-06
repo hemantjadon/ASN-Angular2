@@ -4,19 +4,29 @@ from .utils import UUIDKeyGenerator
 
 # Create your models here.
 
+class BlogCategory(models.Model):
+	'''
+		* Category class for handling categories regarding each blog.
+		* 'id' , 'tag' , 'times_used'
+	'''
+	
+	category = models.CharField(max_length=15,blank=False,null=True)
 
+	
 class Blog(models.Model):
 	'''
-		Blog Model contains information about blogs. 
-			-> id, author(FK ~> user.AuthUser), timestamp, title, content
+		* Blog Model contains information about blogs. 
+		* 'id' , 'author' , 'timestamp' , 'title' , 'subtitle' , 'tags' ,'content'.
 	'''
 	
 	id = models.CharField(max_length=22,primary_key=True,editable=False)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='blogs')
 	timestamp = models.DateTimeField(auto_now_add=True)
 	title = models.CharField(max_length=75,blank=False,null=True)
+	description = models.CharField(max_length=100,blank=False,null=True)
+	category = models.ManyToManyField(BlogCategory,blank=True,related_name='blogs')
 	content = models.TextField(blank=False,null=True)
-
+	
 	class Meta:
 		ordering = ['-timestamp']
 		
@@ -25,7 +35,7 @@ class Blog(models.Model):
 	
 	def save(self,*args,**kwargs):
 		'''
-			Overriding .save() method for assigning the UUID keys to each new object.
+			Overriding .save() method for assigning the b64encoded UUID keys to each new object.
 		'''
 		
 		if len(self.id) == 0:

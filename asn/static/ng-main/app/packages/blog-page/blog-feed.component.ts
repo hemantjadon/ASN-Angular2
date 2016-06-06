@@ -24,13 +24,11 @@ export class BlogFeedComponent implements OnInit {
 	
 	ngOnInit(){
 		this.getAllBlogs();
-		this.createBlog();
 	}
 	
 	private blogs : Blog[];
 	
 	private getAllBlogs(){
-		console.log('yooo');
 		this.blogService.get_blogs()
 						.then((blogs : Blog[]) => {
 							this.blogs = blogs;

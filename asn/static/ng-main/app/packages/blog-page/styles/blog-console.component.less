@@ -1,0 +1,166 @@
+.header{
+	background-color: #00796B;
+	position: relative;
+	height: 350px;
+	min-height: 300px;
+	border-bottom: 1px solid rgba(250,250,250,0.2); 
+	
+	.banner{
+		background-image: url("https://cldup.com/7KB0QsZkIX.svg");
+		background-repeat: no-repeat;
+		background-position-x: 50%;
+		background-position-y: -21%;
+		height: 100%;
+		opacity: 0.06;
+	}
+	.symbol{
+		position: absolute;
+		top: 70px;
+		left: 0;
+		width: 100%;
+		
+		.gears{
+			background-color: white;
+			width: 100px;
+			height: 100px;
+			border: 1px solid transparent;
+			border-radius: 50%;
+			margin-left: auto;
+			margin-right: auto; 
+		
+			h1{
+				font-size: 3em;
+				margin: 0;
+				color: #757575;
+				text-align: center;
+				padding: 20px;
+				padding-top: 27px;
+			}
+		}
+		
+		.char{
+			position: absolute;
+			top: 35px;
+			left: 50%;
+			transform: translate(-50%);
+			font-size: 0.9em;
+		}
+	}
+	
+	.heading{
+		position: absolute;
+		color: white;
+		width: 100%;
+		text-align: center;
+		top: 170px;
+		h4{
+			color: #e0e0e0;
+			font-size: 1.5em;
+		}
+		
+		h1{
+			font-size: 2.5em;
+		}
+		h4{
+			font-size: 1.2em;
+			font-weight: 300;
+		}
+		
+		@media(min-width:400px){
+			
+		}
+	}
+}
+
+div.drawer{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px;
+	text-align: center;
+	font-size: 1.5em;
+	color: #e0e0e0;
+	font-weight: 300; 
+	background-color: #00796B;
+}
+
+div.blogs{
+	margin-top: 10px;
+
+	div.outer-wrapper{
+		max-width: 750px;
+		margin-left: auto;
+		margin-right: auto;
+
+		.blog{
+			margin-left: 10px;
+			margin-right: 10px;
+			position: relative;
+
+			&:hover{
+				.wrapper{
+					.image-holder{
+						background-color: #eee;
+					}
+				}
+			}
+
+			.publish{
+				position: absolute;
+				right: 10px;
+				top: 10px;
+
+				div{
+					width: 10px;
+					height: 10px;
+					border: 1px solid #42b72a;
+					border-radius: 50%;
+				}
+				div.published{
+					background-color: #42b72a;
+				}
+			}
+
+			.wrapper{
+				border : 1px solid #e3e5e7;
+				box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+				display: flex;
+
+				.image-holder{
+					padding: 15px;
+					width: 200px;
+					border-right : 1px solid #e3e5e7;
+				}
+				.content-holder{
+					padding: 20px;
+					max-width: 550px;
+
+					.category{
+						h6{
+							color: rgba(0, 0, 0, 0.8);
+							font-weight: 300;
+						}
+					}
+					.title{
+						h5{
+							font-size: 2em;
+							margin: 15px 0px;
+						}
+					}
+					.description{
+						p{
+							margin: 20px 0px 20px 0px;
+						}
+					}
+
+					.date{
+						span{
+							font-size: 0.8em;
+							color: rgba(0, 0, 0, 0.7); 
+						}
+					}
+				}
+			}
+		}
+	}
+}

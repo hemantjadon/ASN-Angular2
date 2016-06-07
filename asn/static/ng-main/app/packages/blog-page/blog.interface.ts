@@ -10,7 +10,7 @@ export class Blog{
 	title : string;
 	content : string;
 	comments : BlogComment[];
-	
+
 	constructor(url=null , id=null , timestamp=null , author_url=null , title=null , content=null , comments=null){
 		this.url = url;
 		this.id = id;

@@ -58,6 +58,13 @@ class BlogList_AuthorOnly(generics.ListAPIView):
 	def get_queryset(self):
 		return Blog.objects.filter(author=self.request.user)
 
+class BlogDetail_AuthorOnly(generics.RetrieveAPIView):
+	serializer_class = BlogSerializer
+	permission_classes = ([ permissions.IsAdminUser ])
+
+	def get_queryset(self):
+		pk = self.kwargs['pk']
+		return Blog.objects.filter(pk = pk, author = self.request.user)
 
 
 #-------------------------------------------------------------------#

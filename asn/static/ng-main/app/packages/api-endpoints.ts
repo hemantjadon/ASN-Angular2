@@ -33,7 +33,7 @@ export class APIEndpoints {
 		return loginUrl;
 	}
 	
-	public BlogURL_GET(id : string = null , params = []) : URL {
+	public BlogURL_GET(id : string = null) : URL {
 		
 		let blog_url = new URL();
 		blog_url.allowed_methods = ['GET'];
@@ -42,15 +42,25 @@ export class APIEndpoints {
 			blog_url.url = window.location.origin + '/api/blogs/' + id;
 		}
 		else {
-			let query_string = "?" + params.forEach(( param )=> { 
-				return param.key + "=" + param.value + "&"
-			});
-			blog_url.url = window.location.origin + '/api/blogs/'+query_string;
+			blog_url.url = window.location.origin + '/api/blogs/';
 		}
 		
 		return blog_url;
 	}
 	
+	public BlogURL_Author_Only_GET(id : string = null) : URL {
+		let blog_url = new URL();
+		blog_url.allowed_methods = ['GET']
+
+		if ( id ) {
+			blog_url.url = window.location.origin + '/api/blogs/author-only/' + id;
+		}
+		else {
+			blog_url.url = window.location.origin + '/api/blogs/author-only/';
+		}
+		return blog_url;
+	}
+
 	public BlogURL_CREATE() : URL {
 		let blog_creation_url = new URL();
 		blog_creation_url.allowed_methods = ['POST'];

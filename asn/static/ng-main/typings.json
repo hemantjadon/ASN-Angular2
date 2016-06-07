@@ -4,6 +4,8 @@
     "jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
     "node": "registry:dt/node#4.0.0+20160509154515",
     "materialize-css": "github:DefinitelyTyped/DefinitelyTyped/materialize-css/materialize-css.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
-    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#4cdfbe96b666eec5e1defbb519a62abf04e96764"
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#4cdfbe96b666eec5e1defbb519a62abf04e96764",
+    "moment-node": "github:DefinitelyTyped/DefinitelyTyped/moment/moment-node.d.ts#8886ae591751e8a8237fa855617745768f0b1bdf",
+    "moment": "github:DefinitelyTyped/DefinitelyTyped/moment/moment.d.ts#56295f5058cac7ae458540423c50ac2dcf9fc711"
   }
 }

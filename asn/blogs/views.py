@@ -18,7 +18,7 @@ from .permissions import IsBlogAuthor,IsBlogCommentAuthor,IsBlogCommentAuthorOrA
 class BlogList(generics.ListAPIView):
 	queryset = Blog.objects.all()
 	serializer_class = BlogSerializer
-
+	filter_fields = ('author','author__username','category')
 
 class BlogDetail(generics.RetrieveAPIView):
 	serializer_class = BlogSerializer

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+import datetime
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+	'django_filters',
     'user',
     'blogs'
 ]
@@ -54,6 +57,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
 		'rest_framework.authentication.SessionAuthentication',
 	],
+	'DEFAULT_FILTER_BACKENDS': [
+		'rest_framework.filters.DjangoFilterBackend',
+	]
+}
+
+JWT_AUTH = {
+	'JWT_EXPIRATION_DELTA' : datetime.timedelta(hours=1),
+	
+	'JWT_PAYLOAD_HANDLER' : 'asn.jwt_handler.jwt_token_payload_handler',
 }
 
 MIDDLEWARE_CLASSES = [

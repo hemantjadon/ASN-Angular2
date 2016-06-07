@@ -33,7 +33,7 @@ export class APIEndpoints {
 		return loginUrl;
 	}
 	
-	public BlogURL_GET(id : string = null) : URL {
+	public BlogURL_GET(id : string = null , params = []) : URL {
 		
 		let blog_url = new URL();
 		blog_url.allowed_methods = ['GET'];
@@ -42,7 +42,10 @@ export class APIEndpoints {
 			blog_url.url = window.location.origin + '/api/blogs/' + id;
 		}
 		else {
-			blog_url.url = window.location.origin + '/api/blogs/';
+			let query_string = "?" + params.forEach(( param )=> { 
+				return param.key + "=" + param.value + "&"
+			});
+			blog_url.url = window.location.origin + '/api/blogs/'+query_string;
 		}
 		
 		return blog_url;

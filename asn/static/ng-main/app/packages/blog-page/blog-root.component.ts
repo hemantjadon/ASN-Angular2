@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RouteConfig,Router,RouteParams,ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
-import { BlogFeedComponent } from './blog-feed.component';
 import { BlogService } from './services/blog.service';
+import { BlogFeedComponent } from './blog-feed.component';
+import { BlogConsoleRootComponent } from './blog-console-root.component';
 
 @Component({
 	selector: 'blog-page',
@@ -20,6 +21,11 @@ import { BlogService } from './services/blog.service';
 		name: 'BlogFeedPage',
 		component: BlogFeedComponent,
 		useAsDefault: true
+	},
+	{
+		path: '/console/...',
+		name: 'BlogConsole',
+		component: BlogConsoleRootComponent,
 	}
 ])
 export class BlogRootComponent{

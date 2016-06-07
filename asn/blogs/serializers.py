@@ -24,13 +24,14 @@ class BlogCommentSerializer(DynamicFieldsHyperlinkedModelSerializer):
 class BlogSerializer(serializers.HyperlinkedModelSerializer):
 	'''
 		Serializer for the 'Blog' Model.
-		Contains information about : 'url', 'id', 'timestamp', 'author', 'content', 'comments'.
+		Contains information about : 'url', 'id', 'timestamp', 'author', 'category', 'title', 
+		'description', 'content','is_published' ,'comments'.
 	'''
 	
 	url = serializers.HyperlinkedIdentityField(view_name='blog-detail',lookup_field='pk')
 	author = Custom_Author_HyperlinkedIdentity(view_name='user-detail',lookup_field='pk')
 	comments = BlogCommentSerializer(many = True , read_only=True , exclude = ('blog',))
-	
+
 	class Meta:
 		model = Blog
-		fields = ('url','id','timestamp','author','title','content','comments')
+		fields = ('url','id','timestamp','author','category','title','description','content','is_published','comments')

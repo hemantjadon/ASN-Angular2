@@ -24,9 +24,10 @@ class Blog(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	title = models.CharField(max_length=75,blank=False,null=True)
 	description = models.CharField(max_length=100,blank=False,null=True)
-	category = models.ManyToManyField(BlogCategory,blank=True,related_name='blogs')
-	content = models.TextField(blank=False,null=True)
-	
+	category = models.CharField(max_length=20,blank=True,null=True)
+	content = models.TextField(blank=True,null=True)
+	is_published = models.BooleanField(default=False)
+
 	class Meta:
 		ordering = ['-timestamp']
 		

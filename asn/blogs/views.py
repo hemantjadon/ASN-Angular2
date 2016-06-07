@@ -16,7 +16,7 @@ from .permissions import IsBlogAuthor,IsBlogCommentAuthor,IsBlogCommentAuthorOrA
 # Create your views here.
 
 class BlogList(generics.ListAPIView):
-	queryset = Blog.objects.all()
+	queryset = Blog.objects.filter(is_published=True)
 	serializer_class = BlogSerializer
 	filter_fields = ('author','author__username','category')
 
@@ -25,15 +25,16 @@ class BlogDetail(generics.RetrieveAPIView):
 	
 	def get_queryset(self):
 		pk = self.kwargs['pk']
-		return Blog.objects.filter(id = pk)
+		return Blog.objects.filter(id = pk,is_published=True)
 
 class BlogCreate(generics.CreateAPIView):
+
 	serializer_class = BlogSerializer
 	permission_classes = ([ permissions.IsAdminUser ])
-	
+
 	def perform_create(self,serializer):
 		serializer.save(author = self.request.user)
-		
+	
 class BlogUpdate(generics.UpdateAPIView):
 	serializer_class = BlogSerializer
 	permission_classes = ([ IsBlogAuthor ])
@@ -50,6 +51,16 @@ class BlogDelete(generics.DestroyAPIView):
 		pk = self.kwargs['pk']
 		return Blog.objects.filter(id = pk)
 
+class BlogList_AuthorOnly(generics.ListAPIView):
+	serializer_class = BlogSerializer
+	permission_classes = ([ permissions.IsAdminUser ])
+
+	def get_queryset(self):
+		return Blog.objects.filter(author=self.request.user)
+
+
+
+#-------------------------------------------------------------------#
 
 
 

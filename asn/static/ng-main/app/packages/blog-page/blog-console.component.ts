@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router-deprecated';
 import * as moment_ from 'moment';
 const moment:moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
@@ -19,7 +20,11 @@ export class BlogConsoleComponent implements OnInit {
 	
 	private user_token : string;
 	
-	constructor( private AUTH : AUTH , private  consoleService : BlogConsoleService ){
+	constructor( 
+		private AUTH : AUTH ,
+		private router : Router, 
+		private  consoleService : BlogConsoleService ) {
+
 		this.user = new User();
 		this.user = this.AUTH.construct_user_from_localStorage();
 		this.user_token = this.AUTH.get_token();
@@ -37,13 +42,12 @@ export class BlogConsoleComponent implements OnInit {
 		}
 		else {
 			this.consoleService.get_blogs(this.user,this.user_token)
-							.then((blogs : Blog[]) => {
-								this.blogs = blogs;
-								
-							})
-							.catch(( error : Error ) => {
-								console.warn(error,{'message' : 'Something Went wrong this should not happen.'});
-							});
+							   .then((blogs : Blog[]) => {
+								   this.blogs = blogs;								
+								})
+								.catch(( error : Error ) => {
+									console.warn(error,{'message' : 'Something Went wrong this should not happen.'});
+								});
 		}
 	}
 
@@ -51,5 +55,10 @@ export class BlogConsoleComponent implements OnInit {
 		let _moment = moment(DateTime_String,moment.ISO_8601);
 		
 		return _moment.format("MMMM DD[,] YYYY");
+	}
+
+	private _blogClickHandler($event : Event , blog : Blog){
+		let link = ['BlogEdit',{id : blog.id}]
+		this.router.navigate(link);
 	}
 }

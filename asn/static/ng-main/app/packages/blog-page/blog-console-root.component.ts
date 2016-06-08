@@ -3,6 +3,7 @@ import { RouteConfig,Router,RouteParams,ROUTER_DIRECTIVES } from '@angular/route
 
 import { BlogConsoleService } from './services/blog-console.service';
 import { BlogConsoleComponent } from './blog-console.component';
+import { BlogEditComponent } from './blog-edit.component';
 
 @Component({
 	selector: 'blog-console',
@@ -20,6 +21,11 @@ import { BlogConsoleComponent } from './blog-console.component';
 		name: 'BlogConsole',
 		component: BlogConsoleComponent,
 		useAsDefault: true,
+	},
+	{
+		path: '/edit/:id',
+		name: 'BlogEdit',
+		component: BlogEditComponent,
 	}
 ])
 export class BlogConsoleRootComponent{}

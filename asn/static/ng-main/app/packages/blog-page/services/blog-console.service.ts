@@ -18,12 +18,16 @@ export class BlogConsoleService{
 		private apiEndpoints : APIEndpoints
 	){}
 	
-	public get_blogs(user : User , token : string) : Promise<Blog[]> {
+	public get_blogs(user : User , token : string , id : string = null) : Promise<Blog[] | Blog > {
 		return new Promise<Blog[]>((resolve : Function , reject : Function) => {
-			let query_array = [
-				{ key : 'author' , value : user.user_id },
-			]
-			let blogs_url_author_only_get : URL = this.apiEndpoints.BlogURL_Author_Only_GET();
+			let blogs_url_author_only_get : URL;
+
+			if( id ){
+				 blogs_url_author_only_get = this.apiEndpoints.BlogURL_Author_Only_GET( id );
+			}
+			else {
+				blogs_url_author_only_get = this.apiEndpoints.BlogURL_Author_Only_GET();
+			}
 
 			let headers = new Headers({
 				'Content-Type' : 'application/json',

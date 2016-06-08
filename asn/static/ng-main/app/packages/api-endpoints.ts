@@ -20,6 +20,11 @@ export class URL {
  * @method : <URL>BlogURL_GET(string)	=>	gives api endpoint for getting blogs list. 
  * 											If id is provided then returns endpoint that particular blog .	['GET']
  * 
+ * @method : <URL>BlogURL_Author_Only_GET(string)	=> gives api endpoint for returning all blogs of a particular author.
+ * 													   If id is provided then returns endpoint that particular blog .	['GET']
+ * 
+ * @method : <URL>BlogURL_CREATE()	=>	gives api endpoint for creation of new blog . ['POST']
+ * 
  */
 
 @Injectable()
@@ -28,7 +33,7 @@ export class APIEndpoints {
 	public LoginURL() : URL {
 		let loginUrl = new URL();
 
-		loginUrl.url = window.location.origin + '/api-token-auth/';
+		loginUrl.url = `${window.location.origin}/api-token-auth/`;
 		loginUrl.allowed_methods = ['POST'];
 		return loginUrl;
 	}
@@ -39,10 +44,10 @@ export class APIEndpoints {
 		blog_url.allowed_methods = ['GET'];
 		
 		if ( id ) {
-			blog_url.url = window.location.origin + '/api/blogs/' + id;
+			blog_url.url = `${window.location.origin}/api/blogs/${id}/`;
 		}
 		else {
-			blog_url.url = window.location.origin + '/api/blogs/';
+			blog_url.url = `${window.location.origin}/api/blogs/`;
 		}
 		
 		return blog_url;
@@ -53,10 +58,10 @@ export class APIEndpoints {
 		blog_url.allowed_methods = ['GET']
 
 		if ( id ) {
-			blog_url.url = window.location.origin + '/api/blogs/author-only/' + id;
+			blog_url.url = `${window.location.origin}/api/blogs/author-only/${id}/`;
 		}
 		else {
-			blog_url.url = window.location.origin + '/api/blogs/author-only/';
+			blog_url.url = `${window.location.origin}/api/blogs/author-only/`;
 		}
 		return blog_url;
 	}
@@ -65,7 +70,7 @@ export class APIEndpoints {
 		let blog_creation_url = new URL();
 		blog_creation_url.allowed_methods = ['POST'];
 		
-		blog_creation_url.url = window.location.origin + '/api/blogs/create/';
+		blog_creation_url.url = `${window.location.origin}/api/blogs/create/`;
 		
 		return blog_creation_url;
 	}

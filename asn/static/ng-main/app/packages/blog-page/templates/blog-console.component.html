@@ -24,10 +24,13 @@
 		{{user.username}}
 	</div>
 
-
+	<a class="add-blog btn-floating btn-large waves-effect waves-light red">
+		<i class="fa fa-plus"></i>
+	</a>
+	
 	<div class="blogs">
 		<div class="outer-wrapper">
-			<div class="blog" *ngFor="let blog of blogs">
+			<div class="blog" *ngFor="let blog of blogs" (click)="_blogClickHandler($event,blog)">
 				<div class="wrapper">
 					<div class="image-holder">
 						<div class="image">
@@ -45,9 +48,9 @@
 							<p>{{blog.description}}</p>
 						</div>
 						<div class="date">
-							<span>
+							<h6>
 								{{ momentify(blog.timestamp) }}
-							</span>
+							</h6>
 						</div>
 					</div>
 				</div>

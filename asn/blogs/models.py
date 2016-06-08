@@ -22,9 +22,9 @@ class Blog(models.Model):
 	id = models.CharField(max_length=22,primary_key=True,editable=False)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='blogs')
 	timestamp = models.DateTimeField(auto_now_add=True)
-	title = models.CharField(max_length=75,blank=False,null=True)
-	description = models.CharField(max_length=100,blank=False,null=True)
-	category = models.CharField(max_length=20,blank=True,null=True)
+	title = models.CharField(max_length=200,blank=False,null=True)
+	description = models.CharField(max_length=1000,blank=False,null=True)
+	category = models.CharField(max_length=50,blank=True,null=True)
 	content = models.TextField(blank=True,null=True)
 	is_published = models.BooleanField(default=False)
 

@@ -44,4 +44,27 @@ export class BlogConsoleService{
 					 });
 		});
 	}
+
+	public update_blog(user : User , token : string , blog : Blog) : Promise<Blog>{
+		return new Promise<Blog>((resolve : Function , reject : Function) => {
+			let blog_update_url : URL = this.apiEndpoints.BlogURL_UPDATE( blog.id );
+
+			let headers = new Headers({
+				'Content-Type' : 'application/json',
+				'Authorization': 'JWT ' + token, 
+			});
+
+			let payload = JSON.stringify(blog); 
+
+			this.http.put(blog_update_url.url,payload,{ headers : headers })
+					 .toPromise()
+					 .then((response) => {
+						 resolve(response.json());
+					 })
+					 .catch((error : Error) => {
+						 reject(error);
+					 });
+		});
+	}
+
 }

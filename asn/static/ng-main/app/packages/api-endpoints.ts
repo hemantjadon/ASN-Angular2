@@ -20,10 +20,12 @@ export class URL {
  * @method : <URL>BlogURL_GET(string)	=>	gives api endpoint for getting blogs list. 
  * 											If id is provided then returns endpoint that particular blog .	['GET']
  * 
- * @method : <URL>BlogURL_Author_Only_GET(string)	=> gives api endpoint for returning all blogs of a particular author.
- * 													   If id is provided then returns endpoint that particular blog .	['GET']
+ * @method : <URL>BlogURL_Author_Only_GET(string)	=>	gives api endpoint for returning all blogs of a particular author.
+ * 														If id is provided then returns endpoint that particular blog .	['GET']
  * 
  * @method : <URL>BlogURL_CREATE()	=>	gives api endpoint for creation of new blog . ['POST']
+ * 
+ * @method : <URL>BlogURL_UPDATE(string)	=>	gives api endpiont for updation of blog. ['PUT','PATCH']
  * 
  */
 
@@ -73,5 +75,14 @@ export class APIEndpoints {
 		blog_creation_url.url = `${window.location.origin}/api/blogs/create/`;
 		
 		return blog_creation_url;
+	}
+
+	public BlogURL_UPDATE(id : string = null) : URL {
+		let blog_update_url = new URL();
+		blog_update_url.allowed_methods = ['PUT','PATCH'];
+		
+		blog_update_url.url = `${window.location.origin}/api/blogs/${id}/update/`;	
+		
+		return blog_update_url;
 	}
 }

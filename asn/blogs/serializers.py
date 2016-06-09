@@ -25,7 +25,7 @@ class BlogSerializer(serializers.HyperlinkedModelSerializer):
 	'''
 		Serializer for the 'Blog' Model.
 		Contains information about : 'url', 'id', 'timestamp', 'author', 'category', 'title', 
-		'description', 'content','is_published' ,'comments'.
+		'description', 'content', 'is_published', 'header_color_hash', 'comments'.
 	'''
 	
 	url = serializers.HyperlinkedIdentityField(view_name='blog-detail',lookup_field='pk')
@@ -34,4 +34,4 @@ class BlogSerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = Blog
-		fields = ('url','id','timestamp','author','category','title','description','content','is_published','comments')
+		fields = ('url','id','timestamp','author','category','title','description','content','is_published','header_color_hash','comments')

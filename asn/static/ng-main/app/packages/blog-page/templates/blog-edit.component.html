@@ -1,7 +1,19 @@
 <div *ngIf="user.is_staff">
 	<div *ngIf="blog">
 		<div *ngIf="blog.id">
-			<div class="header">
+			<div class="header" [ngStyle]="{'background-color': blog.header_color_hash}">
+				<div class="background-selector" (click)="_colorPalette.onClick($event.target)" (mouseleave)="_colorPalette.onMouseLeave($event.target)">
+					<div class="dropdown">
+						<ul class="color-list">
+							<li *ngFor="let color of _colorPalette.colors" 
+								[ngStyle]="{'background-color': color.hash_value}" (click)="changeHeaderColor($event,color)">
+									<div class="tick" *ngIf="color.selected">
+										<i class="fa fa-check"></i>
+									</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 				<div class="wrapper">
 					<div class="category">
 						<h6>{{ blog.category | uppercase }}</h6>
@@ -13,9 +25,6 @@
 							</div>
 							<div *ngIf="!blog.image">
 								<div class="default-image">
-									<a class="add-blog btn-floating btn-large waves-effect waves-light red">
-										<h5>B</h5>
-									</a>
 								</div>
 							</div>
 						</div>
@@ -28,14 +37,15 @@
 							{{ blog.description }}
 						</p>
 					</div>
-					<!-- This Drawer will be replaced by statistics of blogs. -->
 					<div class="date">
 						<h6>{{ momentify(blog.timestamp) }}</h6>
 					</div>
 				</div>
 			</div>
-		</div>
 
+			<div class="editor">
+			</div>
+		</div>
 		<div *ngIf="!blog.id">
 			HTTP 404 : NOT FOUND
 		</div>

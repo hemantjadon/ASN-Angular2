@@ -4,15 +4,6 @@ from .utils import UUIDKeyGenerator
 
 # Create your models here.
 
-class BlogCategory(models.Model):
-	'''
-		* Category class for handling categories regarding each blog.
-		* 'id' , 'tag' , 'times_used'
-	'''
-	
-	category = models.CharField(max_length=15,blank=False,null=True)
-
-	
 class Blog(models.Model):
 	'''
 		* Blog Model contains information about blogs. 
@@ -26,6 +17,7 @@ class Blog(models.Model):
 	description = models.CharField(max_length=1000,blank=False,null=True)
 	category = models.CharField(max_length=50,blank=True,null=True)
 	content = models.TextField(blank=True,null=True)
+	header_color_hash = models.CharField(max_length=7,blank=False,null=False,default="#8bc34a")
 	is_published = models.BooleanField(default=False)
 
 	class Meta:

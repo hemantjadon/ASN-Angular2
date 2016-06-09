@@ -11,9 +11,13 @@ export class Blog{
 	description : string;
 	category : string;
 	content : string;
+	header_color_hash : string;
+	is_published : boolean;
 	comments : BlogComment[];
 
-	constructor(url=null , id=null , timestamp=null , author_url=null , title=null , description=null , category=null , content=null , comments=null){
+	constructor(url=null , id=null , timestamp=null , author_url=null,
+				title=null , description=null , category=null , content=null , header_color_hash="#8bc34a", 
+				is_published=false , comments=null){
 		this.url = url;
 		this.id = id;
 		this.timestamp = timestamp;
@@ -22,6 +26,8 @@ export class Blog{
 		this.description = description;
 		this.category = category;
 		this.content = content;
+		this.header_color_hash = header_color_hash;
+		this.is_published = is_published;
 		this.comments = comments;
 	}
 }

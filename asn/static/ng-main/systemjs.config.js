@@ -11,6 +11,7 @@
     'angular2-jwt':               'static/ng-main/node_modules/angular2-jwt',
     'rxjs':                       'static/ng-main/node_modules/rxjs',
     'moment':                     'static/ng-main/node_modules/moment',
+    'tinymce':                    'static/ng-main/node_modules/tinymce',
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -19,6 +20,7 @@
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
     'angular2-jwt':               { main: 'angular2-jwt.js', defaultExtension: 'js'},
     'moment':                     { main: 'min/moment.min.js', defaultExtension: 'js'},
+    'tinymce':                    { main: 'tinymce.min.js', defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',

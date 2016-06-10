@@ -6,12 +6,14 @@ const moment:moment.MomentStatic = (<any>moment_)['default'] || moment_;
 import { User } from '../user.interface';
 import { Blog } from './blog.interface';
 import { AUTH } from '../auth-services/auth.service';
+import { TinyMCE } from './tinymce.component';
 import { BlogConsoleService } from './services/blog-console.service';
 
 @Component({
 	selector: 'blog-console-edit',
 	templateUrl: "static/ng-main/build/app/packages/blog-page/templates/blog-edit.component.html",
-	styleUrls: ["static/ng-main/build/app/packages/blog-page/styles/blog-edit.component.css"]
+	styleUrls: ["static/ng-main/build/app/packages/blog-page/styles/blog-edit.component.css"],
+	directives: [ TinyMCE ],
 })
 export class BlogEditComponent implements OnInit{
 	private user : User;
@@ -22,17 +24,16 @@ export class BlogEditComponent implements OnInit{
 		private routeParams : RouteParams, 
 		private router : Router,
 		private  consoleService : BlogConsoleService )
-	{
-		this.user = new User();
-		this.user = this.AUTH.construct_user_from_localStorage();
-		this.user_token = this.AUTH.get_token();
-	}
+		{
+			this.user = new User();
+			this.user = this.AUTH.construct_user_from_localStorage();
+			this.user_token = this.AUTH.get_token();
+		}
 	
 	ngOnInit(){
 		let id = this.routeParams.get('id');
 		this.getBlog(id);
 	}
-
 
 	private blog : Blog;
 

@@ -1,5 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { RouteParams,Router } from '@angular/router-deprecated';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import * as moment_ from 'moment';
 const moment:moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
@@ -20,6 +22,12 @@ export class BlogEditComponent implements OnInit{
 	
 	private user_token : string;
 	
+	private blog : Blog;
+
+	private blogObserver : Observer<Blog>;
+
+	private blog$ : Observable<Blog>;
+
 	constructor( private AUTH : AUTH,
 		private routeParams : RouteParams, 
 		private router : Router,
@@ -34,8 +42,6 @@ export class BlogEditComponent implements OnInit{
 		let id = this.routeParams.get('id');
 		this.getBlog(id);
 	}
-
-	private blog : Blog;
 
 	private getBlog(id : string){
 		if (this.user.user_id == null) {
@@ -107,7 +113,7 @@ export class BlogEditComponent implements OnInit{
 		this.consoleService.update_blog(this.user , this.user_token ,this.blog)
 						   .then((blog : Blog) => {
 								   this.blog = blog;
-								})
+						   })
 						   .catch(( error ) => {
 							   if (error.status === 404) {
 								   this.blog = new Blog();
@@ -116,6 +122,11 @@ export class BlogEditComponent implements OnInit{
 								   console.warn(error,{'message' : 'Something Went wrong this should not happen.'});
 							   }
 						   });
+	}
+
+	private onBlogType($event : Event){
+		this.consoleService.update_blog(this.user,this.user_token,this.blog)
+						   .then(()=>{console.log("Updated")});
 	}
 }
 

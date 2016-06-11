@@ -81,7 +81,7 @@ export class TinyMCE implements OnInit{
 					});
 
 					const evt = Observable.fromEvent(editor,'keyup')
-										  .debounceTime(1000)
+										  .debounceTime(100)
 										  .distinctUntilChanged()
 										  .subscribe(()=>{ 
 											  this.blog.content = editor.getContent();

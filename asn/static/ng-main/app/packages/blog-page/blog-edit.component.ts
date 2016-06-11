@@ -1,7 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { RouteParams,Router } from '@angular/router-deprecated';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import * as moment_ from 'moment';
 const moment:moment.MomentStatic = (<any>moment_)['default'] || moment_;
 
@@ -24,9 +22,7 @@ export class BlogEditComponent implements OnInit{
 	
 	private blog : Blog;
 
-	private blogObserver : Observer<Blog>;
-
-	private blog$ : Observable<Blog>;
+	private is_updating : boolean = false;
 
 	constructor( private AUTH : AUTH,
 		private routeParams : RouteParams, 
@@ -102,6 +98,8 @@ export class BlogEditComponent implements OnInit{
 			return;
 		}
 
+
+
 		this.blog.header_color_hash = color.hash_value;
 
 		this._colorPalette.colors.forEach(( colour ) => {
@@ -109,10 +107,14 @@ export class BlogEditComponent implements OnInit{
 		});
 		color.selected = true;
 		
+		this.is_updating = true;
+
 		// Updating at server.
+
 		this.consoleService.update_blog(this.user , this.user_token ,this.blog)
 						   .then((blog : Blog) => {
 								   this.blog = blog;
+								   this.is_updating = false;
 						   })
 						   .catch(( error ) => {
 							   if (error.status === 404) {
@@ -124,9 +126,33 @@ export class BlogEditComponent implements OnInit{
 						   });
 	}
 
-	private onBlogType($event : Event){
+	private onBlogType(){
+		this.is_updating = true;
 		this.consoleService.update_blog(this.user,this.user_token,this.blog)
-						   .then(()=>{console.log("Updated")});
+						   .then(()=>{
+							   this.is_updating = false;
+						   });
+	}
+
+	private saveBlog(){
+		this.is_updating = true;
+
+		this.consoleService.update_blog(this.user,this.user_token,this.blog)
+						   .then(()=>{
+							   this.is_updating = false;
+						   });
+	}
+
+	private publishChange(){
+		if (this.blog.is_published) {
+			this.blog.is_published = false;
+		}
+		else {
+			this.blog.is_published = true;
+		}
+
+		this.consoleService.update_blog(this.user,this.user_token,this.blog)
+						   .then(()=>{ console.log(this.blog.is_published); });
 	}
 }
 

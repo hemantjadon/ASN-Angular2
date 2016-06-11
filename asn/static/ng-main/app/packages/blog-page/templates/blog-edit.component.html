@@ -2,7 +2,8 @@
 	<div *ngIf="blog">
 		<div *ngIf="blog.id">
 			<div class="header" [ngStyle]="{'background-color': blog.header_color_hash}">
-				<div class="background-selector" (click)="_colorPalette.onClick($event.target)" (mouseleave)="_colorPalette.onMouseLeave($event.target)">
+				<div class="background-selector" (click)="_colorPalette.onClick($event.target)" 
+												(mouseleave)="_colorPalette.onMouseLeave($event.target)">
 					<div class="dropdown">
 						<ul class="color-list">
 							<li *ngFor="let color of _colorPalette.colors" 
@@ -14,9 +15,22 @@
 						</ul>
 					</div>
 				</div>
+
+				<div class="publish-switch">
+					<div class="switch">
+						<label>
+							Published : 
+							<input type="checkbox" [(ngModel)]="blog.is_published" (click)="publishChange()">
+							<span class="lever"></span>
+						</label>
+					</div>
+				</div>
+
 				<div class="wrapper">
 					<div class="category">
-						<h6>{{ blog.category | uppercase }}</h6>
+						<h6 contenteditable="true" [innerHTML]="blog.category | uppercase" 
+							(input)="blog.category = $event.target.innerHTML" (blur)="saveBlog()">
+						</h6>
 					</div>
 					<div class="symbol avatar image">
 						<div class="image">
@@ -30,11 +44,11 @@
 						</div>
 					</div>
 					<div class="heading">
-						<h1 class="title">
-							{{ blog.title }}
+						<h1 class="title" contenteditable="true" [innerHTML]="blog.title" 
+											(input)="blog.title = $event.target.innerHTML" (blur)="saveBlog()">
 						</h1>
-						<p class="description">
-							{{ blog.description }}
+						<p class="description" contenteditable="true" [innerHTML]="blog.description" 
+												(input)="blog.description = $event.target.innerHTML" (blur)="saveBlog()">
 						</p>
 					</div>
 					<div class="date">
@@ -45,7 +59,15 @@
 
 			<div class="editor">
 				<div class="wrapper">
-					<tiny-mce [blog]="blog" (typeEvent)="onBlogType($event)"></tiny-mce>
+					<tiny-mce [blog]="blog" (typeEvent)="onBlogType()"></tiny-mce>
+				</div>
+			</div>
+			<div class="save btn-floating btn-large waves-effect waves-light red" (click)="saveBlog()">
+				<div *ngIf="!is_updating">
+					<i class="fa fa-floppy-o"></i>
+				</div>
+				<div *ngIf="is_updating">
+					<span class="loader"><span class="loader-inner"></span></span>
 				</div>
 			</div>
 		</div>

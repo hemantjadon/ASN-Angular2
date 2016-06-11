@@ -7,15 +7,16 @@ from .utils import UUIDKeyGenerator
 class Blog(models.Model):
 	'''
 		* Blog Model contains information about blogs. 
-		* 'id' , 'author' , 'timestamp' , 'title' , 'description' , 'category' ,'content'.
+		* 'id' , 'author' , 'timestamp' , 'publication_date' , 'title' , 'description' , 'category' ,'content'.
 	'''
 	
 	id = models.CharField(max_length=22,primary_key=True,editable=False)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='blogs')
 	timestamp = models.DateTimeField(auto_now_add=True)
-	title = models.CharField(max_length=200,blank=False,null=True)
-	description = models.CharField(max_length=1000,blank=False,null=True)
-	category = models.CharField(max_length=50,blank=True,null=True)
+	pub_date = models.DateTimeField(blank=True,null=True)
+	title = models.CharField(max_length=200,blank=False,null=False,default="Title")
+	description = models.CharField(max_length=1000,blank=False,null=False,default="Description of Blog.")
+	category = models.CharField(max_length=50,blank=False,null=False,default="Category")
 	content = models.TextField(blank=True,null=True)
 	header_color_hash = models.CharField(max_length=7,blank=False,null=False,default="#8bc34a")
 	is_published = models.BooleanField(default=False)
@@ -47,8 +48,8 @@ class Blog(models.Model):
 
 class BlogComment(models.Model):
 	'''
-		Blog Comment Model contains information about comments on blogs.
-			-> id, blog(FK ~> .Blog), author(FK ~> user.AuthUser), timestamp, title, content
+		* Blog Comment Model contains information about comments on blogs.
+		* 'id' , 'blog' , 'author' , 'timestamp' , 'title' , 'content'.
 	'''
 	
 	id = models.CharField(max_length=22,primary_key=True,editable=False)

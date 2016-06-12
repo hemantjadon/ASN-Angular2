@@ -19,7 +19,9 @@ export class BlogConsoleComponent implements OnInit {
 	private user : User;
 	
 	private user_token : string;
-	
+	 
+	private is_creating : boolean = false;
+
 	constructor( 
 		private AUTH : AUTH ,
 		private router : Router, 
@@ -60,5 +62,20 @@ export class BlogConsoleComponent implements OnInit {
 	private _blogClickHandler($event : Event , blog : Blog){
 		let link = ['BlogEdit',{id : blog.id}]
 		this.router.navigate(link);
+	}
+
+	private createBlog() {
+		if (this.is_creating) {
+			console.log("Already Creating a blog")
+			return;
+		}
+
+		this.is_creating = true;
+
+		this.consoleService.create_blog(this.user,this.user_token)
+						   .then(( blog : Blog ) => {
+							   this.is_creating = false;
+							   this.blogs.unshift(blog);
+						   });
 	}
 }

@@ -28,8 +28,8 @@
 
 				<div class="wrapper">
 					<div class="category">
-						<h6 contenteditable="true" [innerHTML]="blog.category | uppercase" 
-							(input)="blog.category = $event.target.innerHTML" (blur)="saveBlog()">
+						<h6 contenteditable="true" [innerText]="blog.category"
+							(input)="blog.category = $event.target.innerText" (blur)="saveBlog()">
 						</h6>
 					</div>
 					<div class="symbol avatar image">

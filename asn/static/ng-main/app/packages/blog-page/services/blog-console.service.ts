@@ -67,4 +67,24 @@ export class BlogConsoleService{
 		});
 	}
 
+	public create_blog(user : User,token : string) : Promise<Blog>{
+		return new Promise<Blog>((resolve : Function , reject : Function) => {
+			let blog_create_url = this.apiEndpoints.BlogURL_CREATE();
+
+			let headers = new Headers({
+				'Content-Type' : 'application/json',
+				'Authorization': 'JWT ' + token, 
+			});
+
+			this.http.post(blog_create_url.url,"",{ headers : headers})
+					 .toPromise()
+					 .then(( response ) => {
+						 resolve(response.json());
+					 })
+					 .catch((error : Error) => {
+						 reject(error);
+					 });
+
+		});
+	}
 }

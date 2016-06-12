@@ -24,9 +24,14 @@
 		{{user.username}}
 	</div>
 
-	<a class="add-blog btn-floating btn-large waves-effect waves-light red">
-		<i class="fa fa-plus"></i>
-	</a>
+	<div class="add-blog btn-floating btn-large waves-effect waves-light red" (click)="createBlog()">
+		<div *ngIf="!is_creating">
+			<i class="fa fa-plus"></i>
+		</div>
+		<div *ngIf="is_creating">
+			<span class="loader"><span class="loader-inner"></span></span>
+		</div>
+	</div>
 	
 	<div class="blogs">
 		<div class="outer-wrapper">

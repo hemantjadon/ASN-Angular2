@@ -9,17 +9,10 @@ class APIRoot(generics.GenericAPIView):
 	'''
 		Root API Page. Contains All the immediate url references to the root.
 	'''
-	
+
 	queryset = AuthUser.objects.all()
 	def get(self,request,format=None):
 		return Response({
 			'users': reverse('user-list', request=request, format=format),
 			'blogs': reverse('blog-list', request=request, format=format)
 		})
-
-class AngularRoot(TemplateView):
-	'''
-		Root Application Page. Contains the root 'Angular 2' application.
-	'''
-	
-	template_name = 'index.html'

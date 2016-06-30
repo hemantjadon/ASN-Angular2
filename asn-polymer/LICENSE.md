@@ -1,4 +1,4 @@
-# License
+# Polymer License
 
 Everything in this repo is BSD style license unless otherwise specified.
 

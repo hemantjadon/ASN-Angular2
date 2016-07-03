@@ -18,36 +18,35 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 
 <!-- Custom Web Components -->
-
+<link rel="import" href="../user-data/user-data.html">
 
 <dom-module id="app-root">
-	<template>
-		<style>
-			:host {
-				display: block;
-			}
-		</style>
+  <template>
+    <style>
+      :host {
+          display: block;
+      }
+    </style>
 
-		<iron-flex-layout>
+    <iron-flex-layout>
+      <user-data user={{user}}></user-data>
+      <div class="fullbleed vertical layout">
+        {{user}}
+      </div>
 
-			<div class="fullbleed vertical layout">
-			</div>
+    </iron-flex-layout>
 
-		</iron-flex-layout>
-		
-	</template>
-	<script>
-	(function() {
-		'use strict';
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'app-root',
 
-		Polymer({
-			is: 'app-root',
+      properties: {
 
-			properties: {
-				
-			},
-		});
-	})();
-	</script>
+      },
+    });
+  })();
+  </script>
 </dom-module>
-

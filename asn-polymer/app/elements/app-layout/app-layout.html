@@ -15,7 +15,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
-<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 
 
 <!-- Custom Web Components -->
@@ -29,25 +29,29 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       :host {
         display: block;
       }
+      .tp{
+        height: 200vh;
+      }
     </style>
 
     <paper-drawer-panel id="appDrawerPanel" responsive-width="100000px">
+
       <app-drawer-nav drawer foo="bar" selected-page="{{page.type}}"></app-drawer-nav>
 
-      <div main>
-        <paper-header-panel>
-          <app-navbar class="paper-header" selected-page="{{page.type}}"></app-navbar>
-          <div>
-            <iron-pages selected="{{page.type}}" attr-for-selected="data-page" fallback-selection="not-found">
-              <div data-page="">Home</div>
-              <div data-page="blogs">Blogs</div>
-              <div data-page="events">Events</div>
-              <div data-page="schedule">Schedule</div>
-              <div data-page="not-found">404 {{page.type}}</div>
-            </iron-pages>
-            </div>
-        </paper-header-panel>
-      </div>
+      <paper-scroll-header-panel main>
+        <app-navbar class="paper-header" selected-page="{{page.type}}"></app-navbar>
+        <div class="content">
+          <div class="tp"></div>
+          <iron-pages selected="{{page.type}}" attr-for-selected="data-page" fallback-selection="not-found">
+            <div data-page="">Home</div>
+            <div data-page="blogs">Blogs</div>
+            <div data-page="events">Events</div>
+            <div data-page="schedule">Schedule</div>
+            <div data-page="not-found">404 {{page.type}}</div>
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+
     </paper-drawer-panel>
   </template>
   <script>
@@ -58,7 +62,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       is: 'app-layout',
 
       properties: {
-        
+
       },
 
       listeners : {

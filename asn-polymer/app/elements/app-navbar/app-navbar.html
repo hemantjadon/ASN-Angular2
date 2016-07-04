@@ -32,6 +32,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       paper-toolbar{
         --paper-toolbar-background: var(--primary-background-color);
         --paper-toolbar-color: var(--primary-text-color);
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
       }
       paper-toolbar paper-icon-button[icon="menu"]{
         margin-right: 5px;
@@ -77,7 +78,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         query-matches="{{is_sm_mobile}}"></iron-media-query>
     <!-------->
 
-    <paper-toolbar class="paper-header">
+    <paper-toolbar class="paper-header" id="mainToolbar">
 
       <paper-icon-button icon="menu" hidden$="{{is_desktop}}" on-tap="_openDrawer"></paper-icon-button>
       <img class="logo" src="../../images/logos/logo.png" height="20" width="30" alt="nav-logo">

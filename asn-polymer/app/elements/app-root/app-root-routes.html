@@ -14,48 +14,38 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 
 <!-- Custom Web Components -->
 
-<dom-module id="user-data">
+<dom-module id="app-root-routes">
   <template>
 
-    <iron-localstorage name="user" value="{{user}}" on-iron-localstorage-load-empty="_setAnonymousUser"></iron-localstorage>
-
+    <app-location route="{{route}}"></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:type"
+      data="{{data}}"
+      tail="{{tail}}"></app-route>
   </template>
-
   <script>
-  (function() {
-    'use strict';
-
     Polymer({
-      is: 'user-data',
-
+      is: 'app-root-routes',
       properties: {
-        user : {
-          type : String,
-          notify : true,
-          value : null,
+        route: {
+          type: String,
+          notify: true
+        },
+        data: {
+          type: String,
+          notify: true
+        },
+        tail: {
+          type: String,
+          notify: true
         }
-      },
-
-      _setAnonymousUser: function(){
-        console.log(this.user);
-        let user = {
-          user_id : null,
-          username : null,
-          email : null,
-          token : null,
-          expires_at : null,
-          is_anonymous : true,
-          is_authenticated : false,
-          is_admin : false
-        }
-
-        this.set(`user`,user);
       }
     });
-  })();
   </script>
 </dom-module>

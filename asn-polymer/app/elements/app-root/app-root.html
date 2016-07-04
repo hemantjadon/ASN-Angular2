@@ -14,27 +14,34 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="../user-data/user-data.html">
+<link rel="import" href="./app-root-routes.html">
+<link rel="import" href="../app-layout/app-layout.html">
 
 <dom-module id="app-root">
   <template>
-    <style>
+    <style is="custom-style" include="iron-flex iron-flex-alignment">
       :host {
           display: block;
       }
+      .container{
+        height: 100vh;
+      }
     </style>
 
-    <iron-flex-layout>
-      <user-data user={{user}}></user-data>
-      <div class="fullbleed vertical layout">
-        {{user}}
-      </div>
+    <app-root-routes
+      route="{{route}}"
+      data="{{page}}"
+      tail="{{pageTail}}"></app-root-routes>
 
-    </iron-flex-layout>
+    <div class="container">
+
+      <app-layout page="{{page}}"></app-layout>
+
+    </div>
 
   </template>
   <script>
@@ -44,6 +51,9 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       is: 'app-root',
 
       properties: {
+
+      },
+      ready: function() {
 
       },
     });

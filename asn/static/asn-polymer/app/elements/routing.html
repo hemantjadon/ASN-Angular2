@@ -51,9 +51,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setFocus(app.route);
     });
 
-    page('/blogs',function(){
-      app.route = 'blogs';
-      setFocus(app.route);
+    page('/blogs/read',function(){
+      console.log("p");
+      let blogs_page = app.$.appRoot.$.layout.$.blogRootPage;
+      if (Polymer.isInstance(blogs_page)) {
+        app.route = 'blogs';
+        setFocus(app.route);
+        return;
+      }
+      else {
+        Polymer.Base.importHref('/blog-root/blog-root.html',
+        ()=>{// Success
+          app.route = 'blogs';
+          setFocus(app.route);
+        },
+        ()=>{// Error
+          console.log("Some Error in loading blog-root")
+        });
+      }
     });
 
     page('/events',function(){

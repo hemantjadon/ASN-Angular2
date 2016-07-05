@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'user.AuthUser'
 
@@ -64,7 +64,7 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
 	'JWT_EXPIRATION_DELTA' : datetime.timedelta(hours=1),
-	
+
 	'JWT_PAYLOAD_HANDLER' : 'asn.jwt_handler.jwt_token_payload_handler',
 }
 

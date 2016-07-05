@@ -18,4 +18,8 @@ class APIRoot(generics.GenericAPIView):
 		})
 
 class PolymerRoot(TemplateView):
-	template = 'index.html'	
+	'''
+		Root Application Page. Contains the root 'Polymer' application.
+	'''
+
+	template_name = 'index.html'

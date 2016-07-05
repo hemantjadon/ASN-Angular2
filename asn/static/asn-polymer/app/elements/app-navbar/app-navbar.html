@@ -88,9 +88,9 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       </div>
 
       <div class="horizontal-nav" hidden$="{{!is_desktop}}">
-        <paper-tabs selected="{{selectedPage}}" attr-for-selected="data-page" class="horizontal layout">
+        <paper-tabs selected="[[selectedPage]]" attr-for-selected="data-page" class="horizontal layout">
           <paper-tab link data-page=""><a href="/">Home</a></paper-tab>
-          <paper-tab link data-page="blogs"><a href="/blogs">Blogs</a></paper-tab>
+          <paper-tab link data-page="blogs"><a href="/blogs/read">Blogs</a></paper-tab>
           <paper-tab link data-page="events"><a href="/events">Events</a></paper-tab>
           <paper-tab link data-page="schedule"><a href="/schedule">Scheule</a></paper-tab>
         </paper-tabs>

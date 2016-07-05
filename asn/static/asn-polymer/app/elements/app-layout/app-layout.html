@@ -38,7 +38,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       <paper-scroll-header-panel main>
         <app-navbar class="paper-header" selected-page="{{page.type}}"></app-navbar>
         <div class="content">
-          <iron-pages selected="{{page.type}}" attr-for-selected="data-page" fallback-selection="not-found">
+          <iron-pages selected="[[page.type]]" attr-for-selected="data-page">
             <div data-page="">Home</div>
             <blog-root data-page="blogs" route="{{pageTail}}"></blog-root>
             <div data-page="events">Events</div>
@@ -74,6 +74,13 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         this.$.appDrawerPanel.closeDrawer();
       },
 
+      ready: function() {
+        // HACK: Not a good solution.
+        // Used to make page.type="" if it is undefined as in most cases
+        setTimeout(()=>{
+          if (!this.page.type) { this.set('page.type',""); }
+        },0);
+      },
     });
   })();
   </script>

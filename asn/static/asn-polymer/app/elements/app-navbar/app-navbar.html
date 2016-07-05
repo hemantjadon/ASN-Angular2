@@ -1,0 +1,131 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Hemant Jadon. All rights reserved.
+-->
+
+<!-- Polymer and PolymerElements -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
+<!-- Custom Web Components -->
+
+<dom-module id="app-navbar">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-toolbar{
+        --paper-toolbar-background: var(--primary-background-color);
+        --paper-toolbar-color: var(--primary-text-color);
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      }
+      paper-toolbar paper-icon-button[icon="menu"]{
+        margin-right: 5px;
+      }
+
+      paper-toolbar div.title{
+        margin-left: 15px;
+      }
+      div.horizontal-nav paper-tabs{
+        --paper-tabs-selection-bar-color: var(--accent-color);
+        --paper-tabs-selection-bar: {
+          height: 3px;
+        };
+      }
+
+      div.horizontal-nav paper-tabs paper-tab{
+        --paper-tab-ink: var(--accent-color);
+      }
+
+      div.horizontal-nav paper-tabs paper-tab a{
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        font-size: 1.2em;
+        color: var(--secondary-text-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    </style>
+
+    <!-- iron-media-queries for switching media displays -->
+    <iron-media-query
+      query="(min-width: 768px)"
+      query-matches="{{is_desktop}}"></iron-media-query>
+
+    <iron-media-query
+      query="(max-width : 767px) and (min-width: 361px)"
+      query-matches="{{is_mobile}}"></iron-media-query>
+
+      <iron-media-query
+        query="(max-width : 360px)"
+        query-matches="{{is_sm_mobile}}"></iron-media-query>
+    <!-------->
+
+    <paper-toolbar class="paper-header" id="mainToolbar">
+
+      <paper-icon-button icon="menu" hidden$="{{is_desktop}}" on-tap="_openDrawer"></paper-icon-button>
+      <img class="logo" src="../../images/logos/logo.png" height="20" width="30" alt="nav-logo">
+      <div class="title">
+        <span hidden$={{is_sm_mobile}}>Algorithm Society of NSIT</span>
+        <span hidden$="{{!is_sm_mobile}}">ASN</span>
+      </div>
+
+      <div class="horizontal-nav" hidden$="{{!is_desktop}}">
+        <paper-tabs selected="{{selectedPage}}" attr-for-selected="data-page" class="horizontal layout">
+          <paper-tab link data-page=""><a href="/">Home</a></paper-tab>
+          <paper-tab link data-page="blogs"><a href="/blogs">Blogs</a></paper-tab>
+          <paper-tab link data-page="events"><a href="/events">Events</a></paper-tab>
+          <paper-tab link data-page="schedule"><a href="/schedule">Scheule</a></paper-tab>
+        </paper-tabs>
+      </div>
+
+    </paper-toolbar>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'app-navbar',
+
+      properties: {
+        // iron-media-query properties : these toggle according to the <iron-media-query>
+        is_mobile : {
+          type : Boolean,
+          value : true
+        },
+        is_desktop : {
+          type : Boolean,
+          value : false
+        },
+        is_sm_mobile : {
+          type : Boolean,
+          value : false
+        }
+      },
+      _openDrawer : function(evt){
+        this.fire('open-app-drawer');
+      }
+    });
+  })();
+  </script>
+</dom-module>

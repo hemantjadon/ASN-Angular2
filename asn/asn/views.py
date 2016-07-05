@@ -16,3 +16,6 @@ class APIRoot(generics.GenericAPIView):
 			'users': reverse('user-list', request=request, format=format),
 			'blogs': reverse('blog-list', request=request, format=format)
 		})
+
+class PolymerRoot(TemplateView):
+	template = 'index.html'	

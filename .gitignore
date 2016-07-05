@@ -6,3 +6,4 @@ ng-main/build/
 typings/
 build/
 npm-debug.log
+.idea/

@@ -15,45 +15,40 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="./app-root-routes.html">
-<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../app-user/app-user.html">
 
-<dom-module id="app-root">
+<dom-module id="blog-root">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    <style>
       :host {
-          display: block;
-      }
-      .container{
-        height: 100vh;
+        display: block;
       }
     </style>
 
-    <app-root-routes
+    <app-route
       route="{{route}}"
-      data="{{page}}"
-      tail="{{pageTail}}"></app-root-routes>
+      pattern="/:view"
+      data="{{blogRouteData}}"
+      tail="{{blogSubroute}}"
+    ></app-route>
 
-    <div class="container">
-
-      <app-layout page="{{page}}" page-tail="{{pageTail}}" route="{{route}}"></app-layout>
-
-    </div>
+    <iron-pages selected="{{blogRouteData.view}}" attr-for-selected="data-page" fallback-selection="not-found">
+      <div data-page="read">All Blogs</div>
+      <div data-page="console">Console</div>
+      <div data-page="not-found">404 Not Found</div>
+    </iron-pages>
 
   </template>
   <script>
   (function() {
     'use strict';
+
     Polymer({
-      is: 'app-root',
+      is: 'blog-root',
 
       properties: {
-
-      },
-      ready: function() {
 
       },
     });

@@ -27,9 +27,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # TODO : CORS => Remove in production.
+# SECURITY WARNING: don't run with CORS allwed in production!
 CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'user.AuthUser'

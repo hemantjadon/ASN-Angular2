@@ -16,3 +16,10 @@ class APIRoot(generics.GenericAPIView):
 			'users': reverse('user-list', request=request, format=format),
 			'blogs': reverse('blog-list', request=request, format=format)
 		})
+
+class PolymerRoot(TemplateView):
+	'''
+		Root Application Page. Contains the root 'Polymer' application.
+	'''
+
+	template_name = 'index.html'

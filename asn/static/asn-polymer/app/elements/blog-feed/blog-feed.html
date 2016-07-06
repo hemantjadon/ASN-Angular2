@@ -14,48 +14,49 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="./app-root-routes.html">
-<link rel="import" href="../app-layout/app-layout.html">
 
-<dom-module id="app-root">
+<dom-module id="blog-feed">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    <style>
       :host {
-          display: block;
-      }
-      .container{
-        height: 100vh;
+        display: block;
       }
     </style>
 
-    <app-root-routes
-      route="{{route}}"
-      data="{{page}}"
-      tail="{{pageTail}}"></app-root-routes>
+    <iron-ajax id="feedAjax"
+      auto
+      url="{{feedUrl}}"
+      handle-as="json"
+      last-response="{{response}}"
+      on-response="handleResponse"></iron-ajax>
 
-    <div class="container">
-
-      <app-layout page="{{page}}" page-tail="{{pageTail}}" route="{{route}}" id="layout"></app-layout>
-
-    </div>
+    Feed
 
   </template>
   <script>
   (function() {
     'use strict';
+
     Polymer({
-      is: 'app-root',
+      is: 'blog-feed',
 
       properties: {
-
+        feedUrl : {
+          type : String,
+          value : "http://localhost:8000/api/blogs/"
+        }
       },
+
       ready: function() {
 
       },
+
+      handleResponse : function(response){
+        console.log(this.response);
+      }
     });
   })();
   </script>

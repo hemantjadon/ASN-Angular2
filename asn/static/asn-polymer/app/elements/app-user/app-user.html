@@ -14,48 +14,47 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="./app-root-routes.html">
-<link rel="import" href="../app-layout/app-layout.html">
 
-<dom-module id="app-root">
+<dom-module id="user-data">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment">
-      :host {
-          display: block;
-      }
-      .container{
-        height: 100vh;
-      }
-    </style>
 
-    <app-root-routes
-      route="{{route}}"
-      data="{{page}}"
-      tail="{{pageTail}}"></app-root-routes>
-
-    <div class="container">
-
-      <app-layout page="{{page}}" page-tail="{{pageTail}}" route="{{route}}" id="layout"></app-layout>
-
-    </div>
+    <iron-localstorage name="user" value="{{user}}" on-iron-localstorage-load-empty="_setAnonymousUser"></iron-localstorage>
 
   </template>
+
   <script>
   (function() {
     'use strict';
+
     Polymer({
-      is: 'app-root',
+      is: 'user-data',
 
       properties: {
-
+        user : {
+          type : String,
+          notify : true,
+          value : null,
+        }
       },
-      ready: function() {
 
-      },
+      _setAnonymousUser: function(){
+        console.log(this.user);
+        let user = {
+          user_id : null,
+          username : null,
+          email : null,
+          token : null,
+          expires_at : null,
+          is_anonymous : true,
+          is_authenticated : false,
+          is_admin : false
+        }
+
+        this.set(`user`,user);
+      }
     });
   })();
   </script>

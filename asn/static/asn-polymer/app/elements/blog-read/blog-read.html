@@ -14,45 +14,42 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 
 <!-- Custom Web Components -->
-<link rel="import" href="./app-root-routes.html">
-<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../blog-feed/blog-feed.html">
 
-<dom-module id="app-root">
+<dom-module id="blog-read">
   <template>
-    <style is="custom-style" include="iron-flex iron-flex-alignment">
+    <style>
       :host {
-          display: block;
-      }
-      .container{
-        height: 100vh;
+        display: block;
       }
     </style>
 
-    <app-root-routes
+    <app-route
       route="{{route}}"
-      data="{{page}}"
-      tail="{{pageTail}}"></app-root-routes>
+      pattern="/:blogId"
+      data="{{routeData}}"
+      tail="{{subRoute}}"
+      ></app-route>
 
-    <div class="container">
+    <template is="dom-if" if="{{!routeData.blogId}}">
+      <blog-feed></blog-feed>
+    </template>
 
-      <app-layout page="{{page}}" page-tail="{{pageTail}}" route="{{route}}" id="layout"></app-layout>
-
-    </div>
+    <template is="dom-if" if="{{routeData.blogId}}">
+      Specific Blog
+    </template>
 
   </template>
   <script>
   (function() {
     'use strict';
+
     Polymer({
-      is: 'app-root',
+      is: 'blog-read',
 
-      properties: {
-
-      },
       ready: function() {
 
       },

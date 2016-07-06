@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# TODO : CORS => Remove in production.
+CORS_ORIGIN_ALLOW_ALL = True
+
 AUTH_USER_MODEL = 'user.AuthUser'
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
 	'django_filters',
     'user',
@@ -64,13 +68,14 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
 	'JWT_EXPIRATION_DELTA' : datetime.timedelta(hours=1),
-	
+
 	'JWT_PAYLOAD_HANDLER' : 'asn.jwt_handler.jwt_token_payload_handler',
 }
 
 MIDDLEWARE_CLASSES = [
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',

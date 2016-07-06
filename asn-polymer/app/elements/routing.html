@@ -53,10 +53,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     page('/blogs/read',function(){
       console.log("p");
-<<<<<<< HEAD:asn-polymer/app/elements/routing.html
-      app.route = 'blogs';
-      setFocus(app.route);
-=======
       let blogs_page = app.$.appRoot.$.layout.$.blogRootPage;
       if (Polymer.isInstance(blogs_page)) {
         app.route = 'blogs';
@@ -73,7 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.log("Some Error in loading blog-root")
         });
       }
->>>>>>> 7b4b88e90bf14fa21e0a6bdc6819787231c3451a:asn/static/asn-polymer/app/elements/routing.html
     });
 
     page('/events',function(){

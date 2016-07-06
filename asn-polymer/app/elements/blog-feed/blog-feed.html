@@ -30,6 +30,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       auto
       url="{{feedUrl}}"
       handle-as="json"
+      last-response="{{response}}"
       on-response="handleResponse"></iron-ajax>
 
     Feed
@@ -45,7 +46,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       properties: {
         feedUrl : {
           type : String,
-          value : "http://localhost:8000/api/blogs"
+          value : "http://localhost:8000/api/blogs/"
         }
       },
 
@@ -54,7 +55,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       },
 
       handleResponse : function(response){
-        console.log(response);
+        console.log(this.response);
       }
     });
   })();

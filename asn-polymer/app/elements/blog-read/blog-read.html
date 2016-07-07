@@ -18,6 +18,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Custom Web Components -->
 <link rel="import" href="../blog-feed/blog-feed.html">
+<link rel="import" href="../blog-page/blog-page.html">
 
 <dom-module id="blog-read">
   <template>
@@ -39,7 +40,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
     </template>
 
     <template is="dom-if" if="{{routeData.blogId}}">
-      Specific Blog
+      <blog-page blog-id="{{routeData.blogId}}"></blog-page>
     </template>
 
   </template>

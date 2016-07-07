@@ -1,0 +1,137 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Hemant Jadon. All rights reserved.
+-->
+
+<!-- Polymer and PolymerElements -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<!-- Custom Web Components -->
+<link rel="import" href="../blog-page-header/blog-page-header.html">
+
+<dom-module id="blog-page">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      paper-progress {
+        width: 100%;
+        --paper-progress-active-color: var(--accent-color);
+        --paper-progress-container-color: var(--header-accent-color);
+      }
+      .container{
+        height: 100vh
+      }
+      header#backgroundHeader{
+        height: 500px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        padding-top: 64px;
+        z-index: -1;
+      }
+      @media(max-width: 600px){
+        header#backgroundHeader{
+          padding-top: 56px;
+        }
+      }
+      .blog-content-container{
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .blog-text-container{
+        height: 300vh;
+        background: var(--primary-background-color);
+        border: 1px solid #e3e5e7;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        margin: 0px 10px;
+      }
+    </style>
+
+    <iron-ajax id="blogAjax"
+      auto
+      url="{{blogUrl}}"
+      handle-as="json"
+      loading="{{loading}}"
+      last-response="{{blog}}"
+      last-error="{{loadError}}"
+      on-error="handleError">
+    </iron-ajax>
+
+    <paper-progress indeterminate hidden$={{!loading}}></paper-progress>
+
+    <template id="error" is="dom-if" if="{{loadError}}">
+      {{loadError.status}}
+    </template>
+
+    <template id="blog" is="dom-if" if="{{blog}}">
+      <div class="container">
+        <header class="paper-header"id="backgroundHeader" style$="{{__getBackgroundColor(blog)}}"></header>
+        <div class="blog-content-container">
+          <blog-page-header blog="{{blog}}"></blog-page-header>
+          <div class="blog-text-container">
+          </div>
+        </div>
+      </div>
+    </template>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'blog-page',
+
+      properties: {
+        blogId : {
+          type : String,
+          notify : true
+        },
+        blogUrl : {
+          type : String,
+          computed : "computeUrl(blogId)"
+        },
+        blog : {
+          type : Object,
+          notify : true,
+
+        },
+        loading : {
+          type : Boolean,
+          value : false
+        }
+      },
+
+      // Computing Methods
+      computeUrl(blogId){
+        return `http://localhost:8000/api/blogs/${blogId}/`;
+      },
+
+      // Application Logic Methods
+
+
+
+      // CSS and Class getting Methods
+      __getBackgroundColor(blog){
+        return `background:${blog.header_color_hash}`;
+      },
+    });
+  })();
+  </script>
+</dom-module>

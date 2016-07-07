@@ -1,0 +1,233 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Hemant Jadon. All rights reserved.
+-->
+
+<!-- Polymer and PolymerElements -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<!-- Custom Web Components -->
+
+<dom-module id="blog-card">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      a{
+        text-decoration: none;
+      }
+      .blog-container{
+        width: 700px;
+        min-height: 300px;
+        margin-bottom: 20px;
+        border: 1px solid #e3e5e7
+        border-radius: 5px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        cursor: pointer;
+      }
+      .blog-container:hover .image-container{
+        background: #f0f0f0;
+
+      }
+      .image-container{
+        width: 150px;
+        background: #fafafa;
+        border-right: 1px solid #e3e5e7;
+      }
+      .image-container .image{
+        width: 100px;
+        height: 100px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        background: white;
+      }
+      .text-container{
+        width: 550px;
+        padding: 30px 25px;
+      }
+      .text-container .blog-detail-container .blog-category{
+        color: var(--secondary-text-color);
+        font-weight: 300;
+        font-size: 0.9em;
+      }
+      .text-container .blog-detail-container .blog-title h3{
+        color: var(--primary-text-color);
+        font-weight: 400;
+        font-size: 1.8em;
+        padding: 10px 0px;
+        margin: 0;
+      }
+      .text-container .blog-detail-container .blog-description p{
+        color: var(--secondary-text-color);
+        font-weight: 300;
+        font-size: 1em;
+        line-height: 200%;
+        padding: 10px 0px;
+        margin: 0;
+      }
+      .text-container .blog-stat-info-container span{
+        font-size: 0.8rem;
+        color: var(--secondary-text-color);
+      }
+      .text-container .blog-stat-info-container .blog-social-info-container
+      paper-icon-button#blog_like_button{
+        --paper-icon-button-ink-color	: var(--accent-color);
+        cursor: auto;
+      }
+      .text-container .blog-stat-info-container .blog-social-info-container
+      paper-icon-button#blog_like_button.liked{
+        color: var(--accent-color);
+      }
+      .text-container .blog-stat-info-container .blog-social-info-container
+      paper-icon-button#blog_like_button[disabled]{
+        color: #f0f0f0;
+      }
+      .text-container .blog-stat-info-container .blog-social-info-container
+      paper-tooltip{
+        --paper-tooltip : {
+          font-size: 0.9em;
+        };
+      }
+    </style>
+
+    <!-- iron-media-queries -->
+    <iron-media-query
+      query="(min-width: 768px)"
+      query-matches="{{is_desktop}}"></iron-media-query>
+
+    <iron-media-query
+      query="(min-width: 361px) and (max-width: 767px)"
+      query-matches="{{is_mobile}}"></iron-media-query>
+
+    <iron-media-query
+      query="(max-width: 360px)"
+      query-matches="{{is_sm_mobile}}"></iron-media-query>
+
+    <!--------->
+    <a href="/blogs/read/{{blog.id}}" id="redirect_link">
+      <div class="blog-container layout horizontal">
+        <div class="image-container layout vertical center around-justified">
+          <div class="image">
+
+          </div>
+        </div>
+        <div class="text-container layout vertical justified">
+          <div class="blog-detail-container layout vertical">
+            <span class="blog-category">{{toUpperCase(blog.category)}}</span>
+            <span class="blog-title"><h3>{{blog.title}}</h3></span>
+            <span class="blog-description"><p>{{blog.description}}</p></span>
+          </div>
+          <div class="blog-stat-info-container layout horizontal justified center">
+            <span class="blog-author" id="blog_author_description">
+              <paper-icon-button class="blog-author-photo" icon="face"></paper-icon-button>
+              <span>@{{blog.author_username}}</span>
+              <paper-tooltip for="blog_author_description" offset=0>Author</paper-tooltip>
+            </span>
+            <span class="blog-timestamp">{{momentify(blog.timestamp)}}</span>
+            <span class="blog-social-info-container">
+              <paper-icon-button id="blog_like_button" icon="favorite"
+                                class$="{{__getClassLiked(like)}}" on-tap="toggleLike">
+              </paper-icon-button>
+              <paper-tooltip for="blog_like_button" offset=0>{{__getLikeTooltipText(like)}}</paper-tooltip>
+              <span class="blog-like-count">1k</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </template>
+
+  <!-- External Scripts -->
+  <script type="text/javascript" src="../../bower_components/moment/moment.js"></script>
+
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'blog-card',
+
+      properties: {
+        blog:{
+          type : Object,
+          notify : true
+        },
+        like:{
+          type : Boolean,
+          notify : true,
+          value : false,
+        },
+
+        // iron-media-query properties
+        is_desktop : Boolean,
+        is_mobile : Boolean,
+        is_sm_mobile : Boolean
+      },
+
+      // Lifecycle Hooks
+      ready(){
+        this.$.redirect_link.addEventListener('click',(event)=>{
+          if (event.target === this.$.blog_like_button ||
+              event.target.parentNode === this.$.blog_like_button ||
+              event.target === this.$.blog_author_description ||
+              event.target.parentNode === this.$.blog_author_description ||
+              event.target.parentNode.parentNode === this.$.blog_author_description
+              ){
+            event.preventDefault();
+          }
+        });
+      },
+
+      // Application Logic Methods
+      toggleLike(evt){
+        evt.stopPropagation();
+        this.like = !this.like;
+      },
+
+
+      // Auxilary computing methods
+      toUpperCase(str){
+        return str.toUpperCase();
+      },
+      momentify(DateTime_String){
+        let _moment = moment(DateTime_String,moment.ISO_8601);
+
+		    return _moment.format("MMMM DD[,] YYYY");
+      },
+      __getLikeTooltipText(like){
+        if (like) {
+          return "Liked !!";
+        }
+        else {
+          return "Like !";
+        }
+      },
+
+      // __getClass Methods
+      __getClassLiked(like){
+        if (like) {
+          return "liked";
+        }
+        else {
+          return "";
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>

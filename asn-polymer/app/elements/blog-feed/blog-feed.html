@@ -44,6 +44,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         font-size: 3.5em;
         color: white;
         font-weight: 400;
+        text-align: center;
       }
       h4{
         margin: 0;
@@ -51,6 +52,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         font-size: 1.3em;
         color: white;
         font-weight: 300;
+        text-align: center;
       }
       div.content{
         margin: 20px;
@@ -92,7 +94,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
     <div class="content layout vertical center">
       <template id="blog-card" is="dom-repeat" items="{{blogs}}" as="blog">
-        <blog-card blog="{{blog}}"></blog-card>
+        <blog-card blog="{{blog}}" index="{{index}}"></blog-card>
       </template>
     </div>
 

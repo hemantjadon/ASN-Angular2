@@ -18,6 +18,8 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+
 <!-- Custom Web Components -->
 <link rel="import" href="../blog-page-header/blog-page-header.html">
 
@@ -53,13 +55,13 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         max-width: 900px;
         margin: 0 auto;
       }
-
       .blog-text-container{
         height: 300vh;
         background: var(--primary-background-color);
         border: 1px solid #e3e5e7;
         box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        margin: 0px 10px;
+        margin: 10px 10px;
+        position: relative;
       }
     </style>
 
@@ -81,7 +83,8 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
     <template id="blog" is="dom-if" if="{{blog}}">
       <div class="container">
-        <header class="paper-header"id="backgroundHeader" style$="{{__getBackgroundColor(blog)}}"></header>
+        <header class="paper-header" id="backgroundHeader" style$="{{__getBackgroundColor(blog)}}">
+        </header>
         <div class="blog-content-container">
           <blog-page-header blog="{{blog}}"></blog-page-header>
           <div class="blog-text-container">
@@ -122,10 +125,6 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       computeUrl(blogId){
         return `http://localhost:8000/api/blogs/${blogId}/`;
       },
-
-      // Application Logic Methods
-
-
 
       // CSS and Class getting Methods
       __getBackgroundColor(blog){

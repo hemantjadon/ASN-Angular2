@@ -62,13 +62,30 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         width: 100%;
         color: rgba(255, 255, 255, 0.8);
         font-size: 0.9em;
-        padding: 10px 0px 0px 0px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-justified);
       }
       .blog-stat-info-container paper-icon-button#blog_like_button{
         color: var(--accent-color);
       }
       .blog-stat-info-container .blog-like-count{
         padding-right: 12px;
+      }
+      .blog-stat-info-container > span{
+        padding: 5px 20px;
+        width: 100px;
+        justify-content: center;
+      }
+      .blog-stat-info-container .blog-author-username-container{
+        padding-right: 8px;
+      }
+      /* Om Small Mobiles virticalze the stat info container */
+      @media(max-width: 600px){
+        .blog-stat-info-container{
+          @apply(--layout-vertical);
+          @apply(--layout-center);
+        }
       }
     </style>
 
@@ -82,14 +99,14 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         </div>
         <span class="blog-title-container"><h1>{{blog.title}}</h1></span>
         <span class="blog-description-container"><p>{{blog.description}}</p></span>
-        <div class="blog-stat-info-container layout horizontal justified center">
-          <span class="blog-author layout horizontal start-justified center" id="blog_author_description">
+        <div class="blog-stat-info-container">
+          <span class="blog-author layout horizontal justified center" id="blog_author_description">
             <paper-icon-button class="blog-author-photo" icon="face"></paper-icon-button>
-            <span>@{{blog.author_username}}</span>
+            <span class="blog-author-username-container">@{{blog.author_username}}</span>
             <paper-tooltip for="blog_author_description" offset=0>Author</paper-tooltip>
           </span>
-          <span class="blog-timestamp">{{momentify(blog.timestamp)}}</span>
-          <span class="blog-social-info-container layout horizontal end-justified center" on-tap="prevent_redirect">
+          <span class="blog-timestamp layout horizontal around-justified">{{momentify(blog.timestamp)}}</span>
+          <span class="blog-social-info-container layout horizontal center" on-tap="prevent_redirect">
             <paper-icon-button id="blog_like_button" icon="favorite">
             </paper-icon-button>
             <paper-tooltip for="blog_like_button" offset=0>Likes</paper-tooltip>

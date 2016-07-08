@@ -18,8 +18,13 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Custom Web Components -->
 
-<dom-module id="user-data">
+<dom-module id="app-user">
   <template>
+    <style>
+      :host{
+        display: block;
+      }
+    </style>
 
     <iron-localstorage name="user" value="{{user}}" on-iron-localstorage-load-empty="_setAnonymousUser"></iron-localstorage>
 
@@ -30,7 +35,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
     'use strict';
 
     Polymer({
-      is: 'user-data',
+      is: 'app-user',
 
       properties: {
         user : {
@@ -52,9 +57,8 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
           is_authenticated : false,
           is_admin : false
         }
-
         this.set(`user`,user);
-      }
+      },
     });
   })();
   </script>

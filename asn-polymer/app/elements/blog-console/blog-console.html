@@ -11,16 +11,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 @license
 Copyright (c) 2016 Hemant Jadon. All rights reserved.
 -->
-
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="../blog-read/blog-read.html">
-<link rel="import" href="../blog-console/blog-console.html">
+<link rel="import" href="../app-user/app-user.html">
+<link rel="import" href="../blog-console-collection/blog-console-collection.html">
 
-<dom-module id="blog-root">
+<dom-module id="blog-console">
   <template>
     <style>
       :host {
@@ -30,28 +29,40 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
     <app-route
       route="{{route}}"
-      pattern="/:view"
+      pattern="/:blogId"
       data="{{routeData}}"
-      tail="{{subRoute}}"
-    ></app-route>
+      tail="{{subRoute}}">
+    </app-route>
 
-    <iron-pages selected="{{routeData.view}}" attr-for-selected="data-page" fallback-selection="not-found">
-      <blog-read data-page="read" route="{{subRoute}}"></blog-read>
-      <blog-console data-page="console" route="{{subRoute}}"></blog-console>
-      <div data-page="not-found">404 Not Found</div>
-    </iron-pages>
+    <app-user user="{{user}}"></app-user>
+
+    <template is="dom-if" if="{{!user.is_admin}}">
+      HTTP 403 : Forbidden <br />
+      You Are Not Authorized to view this page
+    </template>
+
+    <template is="dom-if" if="{{user.is_admin}}">
+      <template is="dom-if" if="{{!routeData.blogId}}">
+        <blog-console-collection user="[[user]]"></blog-console-collection>
+      </template>
+
+      <template is="dom-if" if="{{routeData.blogId}}">
+        Blog Edit Page
+      </template>
+    </template>
 
   </template>
+
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'blog-root',
+      is: 'blog-console',
 
       properties: {
 
-      },
+      }
     });
   })();
   </script>

@@ -50,7 +50,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'home';
       setFocus(app.route);
     });
-
+    page('/login',function(){
+      app.route = 'login';
+    });
     page('/blogs/read',function(){
       console.log("p");
       let blogs_page = app.$.appRoot.$.layout.$.blogRootPage;

@@ -14,15 +14,15 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Polymer and PolymerElements -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="../blog-card/blog-card.html">
+<link rel="import" href="../blog-console-card/blog-console-card.html">
 
 
-<dom-module id="blog-feed">
+<dom-module id="blog-console-collection">
   <template>
     <style include="iron-flex iron-flex-alignment">
       :host {
@@ -54,48 +54,38 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         font-weight: 300;
         text-align: center;
       }
-      div.content{
-        margin: 20px;
+      .content{
+        max-width: 700px;
+        margin: 0 auto;
       }
-
     </style>
 
-    <!-- iron-media-queries -->
-    <iron-media-query
-      query="(min-width: 768px)"
-      query-matches="{{is_desktop}}"></iron-media-query>
-
-    <iron-media-query
-      query="(min-width: 361px) and (max-width: 767px)"
-      query-matches="{{is_mobile}}"></iron-media-query>
-
-    <iron-media-query
-      query="(max-width: 360px)"
-      query-matches="{{is_sm_mobile}}"></iron-media-query>
-
-    <!------->
-
-    <iron-ajax id="feedAjax"
+    <iron-ajax id="console_feed_ajax"
       auto
-      url="{{feedUrl}}"
+      url="{{consoleFeedUrl}}"
+      content-type="application/json"
       handle-as="json"
-      last-response="{{blogs}}"
       loading="{{loading}}"
-    ></iron-ajax>
+      headers="{{getRequestHeaders(user)}}"
+      last-response="{{blogs}}"
+      last-error="{{error}}"
+      on-error="handleError"></iron-ajax>
 
     <paper-progress indeterminate hidden$={{!loading}}></paper-progress>
 
     <header class="layout vertical around-justified center" id="topHeader">
       <div class="layout vertical center">
-        <h1>Blogs</h1>
-        <h4>Society updates, code &amp; technology Articles.</h4>
+        <h1>Blog Console</h1>
+        <h4>Your Personalized writing pad.</h4>
       </div>
     </header>
 
-    <div class="content layout vertical center">
-      <template id="blog_card" is="dom-repeat" items="{{blogs}}" as="blog">
-        <blog-card blog="{{blog}}" index="{{index}}"></blog-card>
+    <div class="content">
+
+      <template id="console_cards" is="dom-repeat" items="{{blogs}}" as="blog">
+        <blog-console-card blog="{{blog}}" index="{{index}}"></blog-console-card>
       </template>
+
     </div>
 
   </template>
@@ -104,34 +94,32 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
     'use strict';
 
     Polymer({
-      is: 'blog-feed',
+      is: 'blog-console-collection',
 
       properties: {
-        blogs: {
-          type : Array,
-          notify : true
+        loading : {
+          type : Boolean,
+          value : false
         },
-
-        feedUrl : {
+        consoleFeedUrl : {
           type : String,
-          value : "http://localhost:8000/api/blogs/"
+          value : "http://localhost:8000/api/blogs/author-only/"
         },
+        blogs : {
 
-        loading: {
-          type: Boolean,
-          value: true
-        },
-
-        // iron-media-query properties
-        is_desktop : Boolean,
-        is_mobile : Boolean,
-        is_sm_mobile : Boolean
-
+        }
       },
 
-      ready: function() {
-
+      getRequestHeaders(user){
+        return {'Authorization': `JWT ${user.token}`};
       },
+
+      handleError(evt){
+        console.log(this.error);
+        if (this.error.status === 401) {
+          console.error("You are not authorized to view this page.",user);
+        }
+      }
     });
   })();
   </script>

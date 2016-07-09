@@ -14,6 +14,8 @@
 
 ### Properties of __anonymous user__:
 
++ user_id = null
+
 + username = null
 
 + email = null

@@ -21,6 +21,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <!-- Custom Web Components -->
 <link rel="import" href="../app-navbar/app-navbar.html">
 <link rel="import" href="../app-drawer-nav/app-drawer-nav.html">
+<link rel="import" href="../app-login/app-login.html">
 <link rel="import" href="../blog-root/blog-root.html">
 
 <dom-module id="app-layout">
@@ -39,10 +40,12 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         <app-navbar class="paper-header" selected-page="{{page.type}}"></app-navbar>
         <div class="content">
           <iron-pages selected="[[page.type]]" attr-for-selected="data-page" fallback-selection="not-found">
+            <app-login data-page="login"></app-login>
             <div data-page="">Home</div>
             <blog-root id="blogRootPage" data-page="blogs" route="{{pageTail}}"></blog-root>
             <div data-page="events">Events</div>
             <div data-page="schedule">Schedule</div>
+
             <div data-page="not-found">404 {{page.type}}</div>
           </iron-pages>
         </div>

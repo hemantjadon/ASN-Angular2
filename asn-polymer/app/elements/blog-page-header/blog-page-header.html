@@ -1,0 +1,145 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Hemant Jadon. All rights reserved.
+-->
+<!-- Polymer and PolymerElements -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<!-- Custom Web Components -->
+
+
+<dom-module id="blog-page-header">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+      .blog-header-container{
+        min-height: 450px;
+      }
+      .blog-image-container{
+        width: 100px;
+        height: 100px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        background: rgba(0 , 0, 0, 0.1);
+        margin: 10px;
+      }
+      .blog-category-container{
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        font-weight: 300;
+        padding: 10px;
+      }
+      .blog-title-container h1{
+        color: white;
+        font-weight: 300;
+        font-size: 2.3em;
+        text-align: center;
+        padding: 15px 10px;
+        margin: 0;
+      }
+      .blog-description-container p{
+        color: rgba(255,255,255,0.9);
+        font-weight: 300;
+        font-size: 1.2em;
+        line-height: 150%;
+        text-align: center;
+        padding: 15px 10px;
+        margin: 0;
+      }
+      .blog-stat-info-container{
+        width: 100%;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-justified);
+      }
+      .blog-stat-info-container paper-icon-button#blog_like_button{
+        color: var(--accent-color);
+      }
+      .blog-stat-info-container .blog-like-count{
+        padding-right: 12px;
+      }
+      .blog-stat-info-container > span{
+        padding: 5px 20px;
+        width: 100px;
+        justify-content: center;
+      }
+      .blog-stat-info-container .blog-author-username-container{
+        padding-right: 8px;
+      }
+      /* Om Small Mobiles virticalze the stat info container */
+      @media(max-width: 360px){
+        .blog-stat-info-container{
+          @apply(--layout-vertical);
+          @apply(--layout-center);
+        }
+      }
+    </style>
+
+    <div class="blog-header-container layout vertical around-justified">
+      <div class="layout vertical center">
+        <span class="blog-category-container">{{toUpperCase(blog.category)}}</span>
+        <div class="blog-image-container">
+          <div class="image">
+            <!-- Image Placeholder -->
+          </div>
+        </div>
+        <span class="blog-title-container"><h1>{{blog.title}}</h1></span>
+        <span class="blog-description-container"><p>{{blog.description}}</p></span>
+        <div class="blog-stat-info-container">
+          <span class="blog-author layout horizontal justified center" id="blog_author_description">
+            <paper-icon-button class="blog-author-photo" icon="face"></paper-icon-button>
+            <span class="blog-author-username-container">@{{blog.author_username}}</span>
+            <paper-tooltip for="blog_author_description" offset=0>Author</paper-tooltip>
+          </span>
+          <span class="blog-timestamp layout horizontal around-justified">{{momentify(blog.timestamp)}}</span>
+          <span class="blog-social-info-container layout horizontal center" on-tap="prevent_redirect">
+            <paper-icon-button id="blog_like_button" icon="favorite">
+            </paper-icon-button>
+            <paper-tooltip for="blog_like_button" offset=0>Likes</paper-tooltip>
+            <span class="blog-like-count">1k</span>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'blog-page-header',
+
+      properties: {
+        blog : {
+          type : Object,
+          notify : true
+        }
+      },
+
+      // Auxilary Computing Methods
+      toUpperCase(string){
+        return string.toUpperCase();
+      },
+      momentify(DateTime_String){
+        let _moment = moment(DateTime_String,moment.ISO_8601);
+
+		    return _moment.format("MMMM DD[,] YYYY");
+      }
+    });
+  })();
+  </script>
+</dom-module>

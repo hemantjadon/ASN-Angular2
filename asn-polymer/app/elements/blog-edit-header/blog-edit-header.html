@@ -20,8 +20,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Custom Web Components -->
 
-
-<dom-module id="blog-page-header">
+<dom-module id="blog-edit-header">
   <template>
     <style include="iron-flex iron-flex-alignment">
       :host {
@@ -83,12 +82,25 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       .blog-stat-info-container .blog-author-username-container{
         padding-right: 8px;
       }
-      /* Om Small Mobiles virticalze the stat info container */
+      /* On Small Mobiles virticalze the stat info container */
       @media(max-width: 360px){
         .blog-stat-info-container{
           @apply(--layout-vertical);
           @apply(--layout-center);
         }
+      }
+      .blog-stat-info-container .blog-publish-status span.published{
+        display: block;
+        border: 1px solid white;
+        border-radius: 3px;
+        padding: 5px;
+      }
+      .blog-stat-info-container .blog-publish-status span.not-published{
+        display: block;
+        border: 1px solid red;
+        border-radius: 3px;
+        padding: 5px;
+        color: red;
       }
     </style>
 
@@ -102,19 +114,6 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         </div>
         <span class="blog-title-container"><h1>{{blog.title}}</h1></span>
         <span class="blog-description-container"><p>{{blog.description}}</p></span>
-        <div class="blog-stat-info-container">
-          <span class="blog-author layout horizontal justified center" id="blog_author_description">
-            <paper-icon-button class="blog-author-photo" icon="face"></paper-icon-button>
-            <span class="blog-author-username-container">@{{blog.author_username}}</span>
-            <paper-tooltip for="blog_author_description" offset=0>Author</paper-tooltip>
-          </span>
-          <span class="blog-timestamp layout horizontal around-justified">{{momentify(blog.timestamp)}}</span>
-          <span class="blog-social-info-container layout horizontal center" on-tap="prevent_redirect">
-            <paper-icon-button id="blog_like_button" icon="favorite">
-            </paper-icon-button>
-            <paper-tooltip for="blog_like_button" offset=0>Likes</paper-tooltip>
-            <span class="blog-like-count">1k</span>
-        </div>
       </div>
     </div>
 
@@ -124,12 +123,12 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
     'use strict';
 
     Polymer({
-      is: 'blog-page-header',
+      is: 'blog-edit-header',
 
       properties: {
         blog : {
           type : Object,
-          notify : true
+          notify : true,
         }
       },
 

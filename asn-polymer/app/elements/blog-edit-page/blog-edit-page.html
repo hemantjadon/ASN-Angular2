@@ -19,9 +19,9 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 
 <!-- Custom Web Components -->
-<link rel="import" href="../blog-page-header/blog-page-header.html">
+<link rel="import" href="../blog-edit-header/blog-edit-header.html">
 
-<dom-module id="blog-page">
+<dom-module id="blog-edit-page">
   <template>
     <style include="iron-flex iron-flex-alignment">
       :host {
@@ -63,13 +63,15 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       }
     </style>
 
-    <iron-ajax id="blogAjax"
+    <iron-ajax id="console_feed_ajax"
       auto
-      url="{{blogUrl}}"
+      url="{{consoleBlogUrl}}"
+      content-type="application/json"
       handle-as="json"
       loading="{{loading}}"
+      headers="{{getRequestHeaders(user)}}"
       last-response="{{blog}}"
-      last-error="{{loadError}}"
+      last-error="{{error}}"
       on-error="handleError">
     </iron-ajax>
 
@@ -84,7 +86,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         <header class="paper-header" id="backgroundHeader" style$="{{__getBackgroundColor(blog)}}">
         </header>
         <div class="blog-content-container">
-          <blog-page-header blog="{{blog}}"></blog-page-header>
+          <blog-edit-header blog="{{blog}}"></blog-edit-header>
           <div class="blog-text-container">
           </div>
         </div>
@@ -97,14 +99,14 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
     'use strict';
 
     Polymer({
-      is: 'blog-page',
+      is: 'blog-edit-page',
 
       properties: {
         blogId : {
           type : String,
           notify : true
         },
-        blogUrl : {
+        consoleBlogUrl : {
           type : String,
           computed : "computeUrl(blogId)"
         },
@@ -118,16 +120,24 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
           value : false
         }
       },
-
-      // Computing Methods
       computeUrl(blogId){
-        return `http://localhost:8000/api/blogs/${blogId}/`;
+        return `http://localhost:8000/api/blogs/author-only/${blogId}/`;
       },
 
-      // CSS and Class getting Methods
-      __getBackgroundColor(blog){
-        return `background:${blog.header_color_hash}`;
+      getRequestHeaders(user){
+        return {'Authorization': `JWT ${user.token}`};
       },
+
+      handleError(evt){
+        console.log(this.error);
+        if (this.error.status === 401) {
+          console.error("You are not authorized to view this page.",user);
+        }
+      },
+
+      __getBackgroundColor(blog) {
+        return `background:${blog.header_color_hash}`;
+      }
     });
   })();
   </script>

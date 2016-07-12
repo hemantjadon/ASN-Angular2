@@ -21,6 +21,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Custom Web Components -->
 <link rel="import" href="../blog-edit-textarea/blog-edit-textarea.html">
+<link rel="import" href="../blog-marked/blog-marked.html">
 
 <dom-module id="blog-editor">
   <template>
@@ -43,12 +44,12 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
     <paper-tabs selected="{{mode}}" attr-for-selected="data-mode">
       <paper-tab data-mode="edit"><iron-icon icon="create"></iron-icon>Edit</paper-tab>
-      <paper-tab data-mode="preview"><iron-icon icon="youtube-searched-for"></iron-icon>Preview</paper-tab>
+      <paper-tab data-mode="preview"><iron-icon icon="icons:youtube-searched-for"></iron-icon>Preview</paper-tab>
     </paper-tabs>
 
     <iron-pages selected="{{mode}}" attr-for-selected="data-mode">
       <blog-edit-textarea blog-content="{{blog.content}}" data-mode="edit"></blog-edit-textarea>
-      <div data-mode="preview">{{blog.content}}</div>
+      <blog-marked blog-content="{{blog.content}}" data-mode="preview"></blog-marked>
     </iron-pages>
   </template>
   <script>

@@ -1,0 +1,86 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Hemant Jadon. All rights reserved.
+-->
+
+<!-- Polymer and PolymerElements -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<!-- Custom Web Components -->
+<link rel="import" href="../blog-edit-textarea/blog-edit-textarea.html">
+
+<dom-module id="blog-editor">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-tabs{
+        --paper-tabs-selection-bar-color : var(--accent-color);
+        font-size: 1em;
+      }
+      paper-tabs paper-tab{
+        --paper-tab-ink: var(--accent-color);
+      }
+      paper-tabs paper-tab iron-icon{
+        width: 18px;
+        padding: 8px;
+      }
+    </style>
+
+    <paper-tabs selected="{{mode}}" attr-for-selected="data-mode">
+      <paper-tab data-mode="edit"><iron-icon icon="create"></iron-icon>Edit</paper-tab>
+      <paper-tab data-mode="preview"><iron-icon icon="youtube-searched-for"></iron-icon>Preview</paper-tab>
+    </paper-tabs>
+
+    <iron-pages selected="{{mode}}" attr-for-selected="data-mode">
+      <blog-edit-textarea blog-content="{{blog.content}}" data-mode="edit"></blog-edit-textarea>
+      <div data-mode="preview">{{blog.content}}</div>
+    </iron-pages>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'blog-editor',
+
+      properties: {
+        /**
+         * Blog Object to be edited by the editor.
+         * Passed from the 'host' element.
+         * @type {Object}
+         */
+        blog: {
+          type: Object,
+          value : null,
+          notify : true
+        },
+
+        /**
+         * Mode of editor : 'edit' or 'preview'
+         * @type "String"
+         */
+        mode : {
+          type : String,
+          value : "edit",
+          notify : true
+        },
+      }
+    });
+  })();
+  </script>
+</dom-module>

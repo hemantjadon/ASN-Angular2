@@ -20,6 +20,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 
 <!-- Custom Web Components -->
 <link rel="import" href="../blog-edit-header/blog-edit-header.html">
+<link rel="import" href="../blog-editor/blog-editor.html">
 
 <dom-module id="blog-edit-page">
   <template>
@@ -31,9 +32,6 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         width: 100%;
         --paper-progress-active-color: var(--accent-color);
         --paper-progress-container-color: var(--header-accent-color);
-      }
-      .container{
-        height: 100vh
       }
       header#backgroundHeader{
         height: 500px;
@@ -54,11 +52,10 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         margin: 0 auto;
       }
       .blog-text-container{
-        height: 300vh;
         background: var(--primary-background-color);
         border: 1px solid #e3e5e7;
         box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        margin: 10px 10px;
+        margin: 10px 30px;
         position: relative;
       }
     </style>
@@ -88,6 +85,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         <div class="blog-content-container">
           <blog-edit-header blog="{{blog}}"></blog-edit-header>
           <div class="blog-text-container">
+            <blog-editor blog="{{blog}}"></blog-editor>
           </div>
         </div>
       </div>
@@ -102,24 +100,47 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
       is: 'blog-edit-page',
 
       properties: {
+        /**
+         * Blog Id of the blog to edit.
+         * It is set by the host elememt.
+         * @type {Object}
+         */
         blogId : {
           type : String,
           notify : true
         },
+
+        /**
+         * API endpoint for getting the the blog to edit.
+         * It is a computed method depending on blogId.
+         * @type {Object}
+         */
         consoleBlogUrl : {
           type : String,
           computed : "computeUrl(blogId)"
         },
+
+        /**
+         * Blog response from server after iron-ajax request.
+         * @type {Object}
+         */
         blog : {
           type : Object,
           notify : true,
 
         },
+
+        /**
+         * Loading state of the iron-ajax.
+         * Used to display paper-progress.
+         * @type {Object}
+         */
         loading : {
           type : Boolean,
           value : false
         }
       },
+
       computeUrl(blogId){
         return `http://localhost:8000/api/blogs/author-only/${blogId}/`;
       },

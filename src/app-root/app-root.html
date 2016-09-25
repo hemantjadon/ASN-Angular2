@@ -16,6 +16,9 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
 
 <!-- Custom Web Components -->
 <link rel="import" href="../view-home/view-home.html">
@@ -27,6 +30,11 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
 			:host {
 				display: block;
 			}
+
+      
+      iron-pages{
+        height: 1000px;
+      }
 		</style>
 		
     <app-location route="{{route}}"></app-location>
@@ -36,37 +44,7 @@ Copyright (c) 2016 Hemant Jadon. All rights reserved.
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-drawer-layout fullbleed>
-      <!-- Drawer content -->
-      <app-drawer>
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="/home">Home</a>
-          <a name="view2" href="/view2">View Two</a>
-          <a name="view3" href="/view3">View Three</a>
-        </iron-selector>
-      </app-drawer>
-
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
-
-        <app-header condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>ASN</div>
-          </app-toolbar>
-        </app-header>
-
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
-          <view-home name="home"></view-home>
-          <my-view404 name="view404"></my-view404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+    
 
 	</template>
 	<script>

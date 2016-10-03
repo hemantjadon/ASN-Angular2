@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor/globals';
 
 export class AsnPage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/schedule');
   }
 
   getParagraphText() {

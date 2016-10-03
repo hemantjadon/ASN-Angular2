@@ -8,7 +8,7 @@ import { TitleService } from '../shared/services/title.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit,OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy {
   private pageTitle: string;
   private pageTitle_subscription: Subscription;
   constructor(
